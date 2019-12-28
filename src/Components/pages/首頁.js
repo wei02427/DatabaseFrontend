@@ -20,7 +20,7 @@ class Article1 extends React.Component {
     componentWillMount() {
         const that = this;
         
-        fetch('http://localhost:9000/testAPI', {
+        fetch('https://ntutsting.herokuapp.com/testAPI', {
             method: 'get',
             mode: 'cors',
         })
