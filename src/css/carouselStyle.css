@@ -1,0 +1,27 @@
+.CarouselControler{
+    width: 100%;
+}
+
+.carousel{
+    padding-top: 166px;
+}
+
+.carousel-inner .image{
+    height: 460px;
+    background-position: center center;
+    background-size:cover;
+}
+
+.carousel-indicators li{
+    width: 15px;
+    height: 15px;
+    margin-right: 6px;
+    margin-left: 6px;
+}
+
+
+@media(max-width:768px){
+	.carousel{
+        padding-top: 50px;
+    }
+}

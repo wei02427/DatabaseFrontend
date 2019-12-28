@@ -1,0 +1,125 @@
+.GameContainer{
+    width: 80%;
+    margin-left: 10%;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin: auto;
+}
+
+.gameCard{
+    width: 28%;
+    margin-left: 2.5%;
+    margin-right: 2.5%;
+    transition: 0.3s;
+}
+
+.gameCard:hover{
+    width: 29%;
+    margin-left: 2%;
+    margin-right: 2%;
+}
+
+.game{
+    width: 100%;
+}
+
+.gameImg{
+    width: 100%;
+    padding-top: 20px;
+    transition: 0.3s;
+}
+
+.gameText{
+    width: 100%;
+    padding-right: 15px;
+    background-color: #62dce0;
+    color: #1e1d41;
+    transition: 0.3s;
+}
+
+
+
+/*
+.sale{
+    font-size: 30px;
+    margin-top: 60px;
+}
+
+.sale2{
+    display: none;
+    margin-top: 40px;
+}*/
+
+/*
+@media(min-width: 1024px){
+	.ComContainer{
+		width:970px;
+    }
+
+    .com{
+        width: 30%;
+        margin-left: 10%;
+        margin-right: 10%;
+    }
+}
+
+@media(max-width: 1023px){
+	.ComContainer{
+		width:708px;
+    }
+
+    .com{
+        width: 40%;
+        margin-left: 5%;
+        margin-right: 5%;
+    }
+
+    .sale{
+        font-size: 26px;
+    }
+}
+
+@media(max-width: 767px){
+	.ComContainer{
+        width:650px;
+        padding-top: 70px;
+    }
+    
+    .com{
+        width: 35%;
+        margin-left: 7.5%;
+        margin-right: 7.5%;
+    }
+
+    .sale{
+        font-size: 24px;
+    }
+}
+
+@media(max-width: 480px){
+	.ComContainer{
+		width:90%;
+    }
+    
+    .com{
+        width: 80%;
+        margin-left: 10%;
+         margin-right: 10%;
+    }
+
+    .sale{
+        display: none;
+    }
+
+    .sale2{
+        display: flex;
+        font-size: 22px;
+    }
+}
+
+@media(max-width: 375px){
+	.ComContainer{
+		width:100%;
+    }
+}*/

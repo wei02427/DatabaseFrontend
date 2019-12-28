@@ -1,0 +1,214 @@
+.Mycontainer{
+	padding-Top:200px;
+	margin-bottom: 130px;
+}
+
+hr{
+	margin-top: 40px;
+	margin-bottom: 40px;
+	border-color: #5d6380;
+}
+
+
+/*圖文Row(左右式)*/
+.airtycleRow{
+	width: 80%;
+	margin-left: 10%;
+	display: flex;
+	flex-direction: row;
+	margin-top: 200px;
+	color: white;
+}
+
+.airtycleRow2{
+	width: 100%;
+	display: flex;
+	flex-direction: row-reverse;
+}
+
+.airtycleRow_partA{
+	margin-right: 5%;
+	width: 25%;
+}
+
+.airtycleRow_partB{
+	width: 70%;
+	border: solid 1px #5d6380;
+	padding-left: 10px;
+	padding-right: 10px;
+}
+
+.airtycleRow_partC{
+	padding-top: 20px;
+	margin-left: 5%;
+	width: 35%;
+}
+
+.airtycleRow_partD{
+	width: 60%;
+}
+
+/*影片ROW*/
+.videoRow,.videoRow2{
+	width: 100%;
+	padding-top: 60px;
+	display: flex;
+	flex-direction: row;
+}
+
+.videoRow_part,.videoRow_part2,.videoRowText{
+	width: 45%;
+	margin-left: 2.5%;
+	margin-right: 2.5%;
+}
+
+.video,.video2{
+	border:none;
+	overflow:hidden;
+	width:100%;
+	padding-top:20px;
+}
+
+.videoText{
+	padding-top: 30px;
+}
+@media(min-width: 1024px){
+	.pageTitle{
+		font-size: 32px;
+	}
+
+	.Mycontainer{
+		width: 970px;
+	}
+
+	#MainContainer{
+		width: 80%;
+	}
+	
+	.video{
+		height: 260px;
+	}
+
+	.video2{
+		height: 310px;
+	}
+
+	.imformation{
+		font-size: 20px;
+	}
+}
+
+@media(max-width: 1023px){
+	.pageTitle{
+		font-size: 28px;
+	}
+
+	.Mycontainer{
+		width:708px;
+		margin-bottom: 110px;
+	}
+
+	
+	.video{
+		height: 185px;
+	}
+
+	.videoRow2{
+		flex-direction: column;
+		padding-top: 30px;
+	}
+
+	.videoRow_part2,.videoRowText{
+		width: 100%;
+		margin-left: 0;
+		margin-right: 0;
+	}
+
+	.video2{
+		height: 400px;
+	}
+
+	.videoText{
+		font-size: 21px;
+	}
+
+	/*圖文Row(上下式)*/
+	.airtycleRow,.airtycleRow2{
+		flex-direction: column;
+	}
+
+	.airtycleRow_partA{
+		padding-top: 40px;
+		margin-right:0;
+		width: 100%;
+	}
+
+	.airtycleRow_partC{
+		padding-top: 40px;
+		margin-left:0;
+		width: 100%;
+	}
+	
+	.airtycleRow_partB,.airtycleRow_partD{
+		padding-top:10px;
+		width: 100%;
+	}
+}
+
+@media(max-width: 767px){
+	.Mycontainer{
+		width:460px;
+		padding-Top:70px;
+		margin-bottom: 50px;
+	}
+
+	.videoRow{
+		flex-direction: column;
+		padding-top: 0;
+	}
+
+	.videoRow2{
+		padding-top:20px;
+	}
+
+	.videoRow_part{
+		width: 100%;
+		margin-left: 0;
+		margin-right: 0;
+	}
+
+	.video{
+		height: 250px;
+	}
+
+	.video2{
+		height: 300px;
+	}
+}
+
+@media(max-width: 480px){
+	.Mycontainer{
+		width:90%;
+		margin-bottom: 10px;
+	}
+
+	.video,.video2{
+		height: 220px;
+	}
+
+	.videoRowText{
+		width: 80%;
+		margin-left: 10%;
+		margin-right: 10%;
+	}
+}
+
+@media(max-width: 375px){
+	.Mycontainer{
+		width:95%;
+	}
+
+	.video,.video2{
+		height: 220px;
+	}
+}

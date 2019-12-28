@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css?family=Noto+Sans+TC&display=swap" rel="stylesheet">
+    <link
+    rel="stylesheet"
+    href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+    integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+    crossorigin="anonymous"/>
+        <style>
+            body{
+                font-family: 'Noto Sans TC', sans-serif;
+                line-height: 2;
+                background-color: #13172d;
+            }
+
+            @media(max-width: 375px){
+                body{
+                    font-size:0.9rem;
+                }
+	        }
+        </style>
+    <title>Sting遊戲購物網</title>
+</head>
+<body>
+    <div id="root"></div>
+
+    <div class="cdn">
+        <script src="./dist/main.js"></script>
+        <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js" integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js" integrity="sha384-h0AbiXch4ZDo7tp9hKZ4TsHbi047NrKGLO3SEJAg45jXxnGIfYzk4Si90RDIqNm1" crossorigin="anonymous"></script>
+
+        <script>
+            $(document).ready(function(){   
+                $('#sidebarBtn').on('click',function(){         //如果按下漢堡選單按鈕
+                    $('#sidebar').toggleClass('active');                    //選單打開
+                    $('#sidebarBtn').toggleClass('active');                 //按鈕背景變色
+                    $(".menu").toggleClass("close");                        //按鈕圖案變X
+                    $(".list-unstyled.collapse.show").removeClass("show");  //收回下拉選單
+                    $(".dropdown-toggle").attr("aria-expanded","false");    //選單變回原色
+                });
+
+                $('.linkText').on('click',function(){         //如果按下漢堡選單連結
+                    $('#sidebar.active').removeClass('active');              //選單關閉
+                    $('#sidebarBtn.active').removeClass('active');           //按鈕背景變色
+                    $(".menu.close").removeClass("close");                  //按鈕圖案變三
+                    $(".list-unstyled.collapse.show").removeClass("show");  //收回下拉選單
+                    $(".dropdown-toggle").attr("aria-expanded","false");    //選單變回原色
+                    $('html,body').animate({scrollTop:0},800);              //網頁回到頂部
+                });
+
+                $('.naviText').on('click',function(){         //如果按下導覽列選單連結
+                    $('html,body').animate({scrollTop:0},800);              //網頁回到頂部
+                });
+
+                $('.gameCard').on('click',function(){         //如果按下導覽列選單連結
+                    $('html,body').animate({scrollTop:0},800);              //網頁回到頂部
+                });
+
+                $(window).scroll(function() {
+                    if($(window).width()>=768){                          //若視窗寬度>=768px
+                        if ($(this).scrollTop() > 110)  {               //若視窗下滑110px 
+                            $('.navbar').addClass('stick');             //幫選單加上固定效果
+                            } else {
+                            $('.navbar').removeClass('stick');          //移除選單固定效果
+                        }
+                    }else{
+                        $('.navbar').removeClass('stick');          //移除選單固定效果
+                    }
+
+                    if($(this).scrollTop()>100){
+                        $('.goTop').fadeIn();
+                    }else{
+                        $('.goTop').fadeOut();
+                    }
+                });
+
+                $('.goTop').on('click',function(){
+                    $('html,body').animate({scrollTop:0},800);
+                    
+                });
+            });  
+
+            
+        </script>
+        <!-- The core Firebase JS SDK is always required and must be listed first -->
+        <!-- <script src="/__/firebase/6.6.2/firebase-app.js"></script> -->
+
+        <!-- TODO: Add SDKs for Firebase products that you want to use
+            https://firebase.google.com/docs/web/setup#available-libraries -->
+
+        <!-- Initialize Firebase -->
+        <!-- <script src="/__/firebase/init.js"></script> -->
+    </div>
+</body>
+</html>

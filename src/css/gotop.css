@@ -1,0 +1,14 @@
+.goTop{
+    width: 38px;
+    height: 38px;
+    line-height: 32px;
+    text-align: center;
+    background-color:rgba(100, 100, 100,0);
+    border: 2px solid #b8b6b4;
+    color: #b8b6b4;
+    position: fixed;
+    bottom: 20px;
+    right: 30px;
+    z-index: 30;
+    cursor: pointer;
+}
