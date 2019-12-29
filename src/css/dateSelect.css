@@ -1,0 +1,15 @@
+
+.select-box{
+    height: 32px;
+    overflow: auto;
+}
+.select-main{
+    width:93px;
+    height: 32px;
+    border:1px solid #CDCDCD;
+    margin-right: 10px;
+    float:left;
+    border-radius: 3px;
+    padding-left:10px;
+    outline: none;
+}

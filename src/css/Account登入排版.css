@@ -1,0 +1,44 @@
+.FormText{
+    color: white;
+}
+
+.FormGroup{
+    width: "25%";
+    margin: 0 auto;
+}
+
+.text-with-hr {
+    text-align: center;
+    position: relative;
+    z-index: 2;
+}
+
+.text-with-hr:before {
+    position: absolute;
+    content: '';
+    top: 20px;
+    left: 0px;
+    width: 100%;
+    border-bottom: 5px solid#FFFFFF;
+    z-index: -1;
+}
+.text-with-hr span {
+    display: inline-block;
+    background:#13181f;
+    padding: 10px;
+}
+
+.divider {
+    height: 1px;
+    width:100%;
+    display:block; /* for use on default inline elements like span */
+    margin: 9px 0;
+    overflow: hidden;
+    background-color: rgb(95, 95, 95);
+  }
+
+  .SignUp{
+    color: white;
+    right: 10px;
+    margin-right: 20px;
+}

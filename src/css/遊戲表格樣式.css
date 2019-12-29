@@ -1,0 +1,27 @@
+.gameTable{
+    display: flex;
+    justify-content: center;
+    margin-top: 30px;
+}
+
+.tableHead{
+    margin-bottom: 10px;
+}
+
+.headField{
+    color: white;
+    background-color: #313131;
+    border-right: solid 2px #13172d;
+}
+
+.bodyField{
+    background-color:#1b1b1b;
+    color: white;
+    margin-right: 1px;
+    border: solid 2px #313131;
+}
+
+.dowmButton{
+    height: 90%;
+    width: 80%;
+}
