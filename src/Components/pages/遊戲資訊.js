@@ -16,7 +16,7 @@ class GameInfo extends React.Component{
         var data = this.props.location.state;
         var gamePrice=data.price;
         var gameImg=data.img;
-        var gmaeText=data.description;
+        var gmaeText="這是一款真正好玩的遊戲，很多很多介紹.....";
         return (
             <div>
                 <div style={{width:"100%",display:"flex",justifyContent:"center"}}>

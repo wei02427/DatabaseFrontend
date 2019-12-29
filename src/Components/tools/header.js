@@ -1,7 +1,9 @@
 import React from "react";
+import Dropdown from 'react-bootstrap/Dropdown';
 import {Link}  from "react-router-dom";
-import HeaderTop from "./headerTop"
 import "../../css/headerStyle.css"
+import Logo from "../../img/logo.png";
+
 
 class Header extends React.Component{
     constructor(props){
@@ -16,39 +18,37 @@ class Header extends React.Component{
 	        alignItems: "center"
         };
 
-        return (
-            <div classNam="header">
-                <HeaderTop contact={{state:this.props.contact.state}}/>
+        if(this.props.contact.state === "noUser"){
+            return (
+                <div className="header">
+                        <Link className="LogoBox" to="/">
+                            <img className="TopLogo" src={Logo}></img>
+                        </Link>
+                        
+                        <Link className="naviText" id="TopText" to="/signIn">會員登入</Link>
+                </div>
+            );
+        }else if(this.props.contact.state === "logIn"){
+            }return (
+                <div className="header">
+                        <div className="LogoBox">
+                            <img className="TopLogo" src={Logo}></img>
+                        </div>
 
-                <nav className="navbar">
-                    <ul class="navi_content">                
-                        <li >
-                            <Link className="naviText" to="/">精選推薦</Link>
-                        </li>  
+                        <Dropdown className="dropDown">
+                            <Dropdown.Toggle variant="info" id="dropdown-basic">查看資料</Dropdown.Toggle>
 
-                        <li >
-                            <Link className="naviText" to="/">休閒類型</Link>
-                        </li>
+                            <Dropdown.Menu>
+                                <Dropdown.Item href="#/action-1">購物車</Dropdown.Item>
+                                <Dropdown.Item href="#/action-2">個人資料</Dropdown.Item>
+                                <Dropdown.Item href="#/action-3">交易紀錄</Dropdown.Item>
+                                <Dropdown.Item href="#/action-3">登出</Dropdown.Item>
+                            </Dropdown.Menu>
+                        </Dropdown>
 
-                        <li >
-                            <Link className="naviText" to="/">冒險類型</Link>
-                        </li>
-
-                        <li >
-                            <Link className="naviText" to="/">競速類型</Link>
-                        </li>
-
-                        <li >
-                            <Link className="naviText" to="/">策略類型</Link>
-                        </li>
-
-                        <li >
-                            <Link className="naviText" to="/">運動類型</Link>
-                        </li>
-                    </ul>
-                </nav>
-            </div>
-        );
+                        <p className="UserText">XXX玩家，你好！</p>
+                </div>
+            );
     }
 }
 
