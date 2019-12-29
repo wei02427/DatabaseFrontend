@@ -7,9 +7,6 @@ import GameTtile from '../tools/gameTitle';
 import ImgText from "../tools/imgText";
 import titleImg from '../../img/gameTitle.jpg';
 import { relative } from "path";
-import com1 from "../../img/周邊1.jpg";
-import com2 from "../../img/周邊2.jpg";
-import com3 from "../../img/周邊3.jpg";
 
 class Article1 extends React.Component {
     constructor(props) {
@@ -29,8 +26,8 @@ class Article1 extends React.Component {
                 return data.json()
             })
             .then(function (data) {
-                let lists = data.map((element) => <Link className="gameCard" to={{ pathname: "/gmaeInfo", state: { price: element.price, img: com1,description: element.description} }}>
-                    <ImgText contact={{ img: com1, text: element.price, style: "1" }} />
+                let lists = data.map((element) => <Link className="gameCard" to={{ pathname: "/gmaeInfo", state: { price: element.price, img: element.photo,description: element.description} }}>
+                    <ImgText contact={{ img: element.photo, text: element.price, style: "1" }} />
                 </Link>)
                 that.setState({
                     list: [...that.state.list, lists]
