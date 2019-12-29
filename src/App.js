@@ -4,6 +4,7 @@ import Header from "./Components/tools/header"
 import Footer from "./Components/tools/footer"
 import Home from "./Components/pages/首頁"
 import GmaeInfo from './Components/pages/遊戲資訊'
+import SignIn from './Components/pages/帳號登入'
 import "./css/gotop.css"
 
 class App extends React.Component{
@@ -17,6 +18,7 @@ class App extends React.Component{
                 <div> 
                     <Header contact={{state:"noUser"}}/>
                     <Route exact path="/" component={Home}/>
+                    <Route path="signIn" component={SignIn}/>
                     <Route path="/gmaeInfo" component={GmaeInfo}/>
                     <div className="goTop">TOP</div>
                     <Footer/>
