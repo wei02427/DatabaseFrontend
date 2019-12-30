@@ -1,5 +1,5 @@
 .Mycontainer{
-	padding-Top:200px;
+	padding-Top:150px;
 	margin-bottom: 130px;
 }
 
@@ -9,6 +9,11 @@ hr{
 	border-color: #5d6380;
 }
 
+.TextAreaInput{
+    height: 150px;
+    width: 640px;
+    resize: none;
+}
 
 /*圖文Row(左右式)*/
 .airtycleRow{

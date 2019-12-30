@@ -28,11 +28,11 @@ class Navbar extends React.Component{
                         </li>
 
                         <li >
-                            <button className="naviText">冒險類型</button>
+                            <Link className="naviText" to="/orderRecoder">冒險類型</Link>
                         </li>
 
                         <li >
-                            <button className="naviText">競速類型</button>
+                            <Link className="naviText" to="/personalInfo">競速類型</Link>
                         </li>
 
                         <li >

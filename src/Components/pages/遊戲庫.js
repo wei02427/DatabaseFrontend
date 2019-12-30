@@ -1,0 +1,55 @@
+import React from "react";
+import "../../css/container排版.css";
+import NaviBar from "../tools/naviBar"
+import {Link}  from "react-router-dom";
+import GameTable from "../tools/遊戲表格"
+import Button from 'react-bootstrap/Button';
+  
+class GameBox extends React.Component{
+    constructor(props){
+        super(props);
+    }
+    
+    render(){
+    var buttonStyle={
+        width:"100px",
+        marginTop:"50px",
+        marginBottom:"20px",
+        marginRight:"10px",
+        marginLeft:"10px"
+    }
+
+    var CenterStyle={
+        width:"100%",
+        display:"flex",
+        justifyContent:"center"
+    }
+
+        return (
+            <div>
+                <NaviBar/>
+                <div style={{width:"100%",display:"flex",justifyContent:"center"}}>
+                    <div className="Mycontainer" id="MainContainer" style={{paddingTop:"20px"}}>
+                        <div className="TitleDiv" style={CenterStyle}>
+                            <h2 style={{color:"white",paddingTop:"170px"}}>遊戲庫：管理所有遊戲發布狀態</h2>
+                        </div>
+
+                        <GameTable contact={{tableType:"gameBox"}}/>
+
+                        <div className="ButtonDiv" style={CenterStyle}>
+                            <Link to ="/gmaeManage">
+                                <Button variant="info" style={buttonStyle}>返回</Button>
+                            </Link>
+
+                            <Link to ="/changeGameData/createNew">
+                                <Button variant="success" style={buttonStyle}>新增</Button>
+                            </Link>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        );
+    }
+}
+
+export default GameBox;

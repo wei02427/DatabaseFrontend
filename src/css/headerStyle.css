@@ -1,9 +1,9 @@
 
 /*```````````````````````````````````*/
-.TopLogoBox{
+.header{
 	height: 110px;
 	width: 100%;
-	background: #13172d;
+	background: #14171e;
 	border-bottom:1px solid rgba(0, 0, 0, 0.1);
 	position: absolute;
 	top: 0;
@@ -93,37 +93,14 @@
 	font-size: 16px;
 }
 
-
-.navi_content ul{			/*子導覽列選單*/
-	background-color: rgb(255, 255, 255); 
-	box-shadow: 1px 1px 3px rgba(0,0,0,0.1);
-	position: absolute;
-	width: 120px;
-	list-style: none;
-	left: -10px;
-	display: none;
+.naviText{
+	color: #d9dadd;
+	background-color: transparent;
+	border: 0;
 }
 
-.navi_content ul li{		/*子導覽列選項*/
-    width: 120px;
-	padding:6px 5px 6px 5px;
-	left: -40px;
-	box-shadow: 1px 1px 3px rgba(0,0,0,0.1);
-}
-
-.naviText{					/*子導覽列文字設定*/
-	color: #d3d3d6;
-	font-size: 16px;
-	margin-left: 5px;
-}
-
-.navi_content li:hover>ul{  /*滑入父選單，子選單顯示*/
-	display: block;
-}
-
-.navi_content li:hover{
-	text-decoration-line: none;
-	color:#1e2957;
+.naviText:focus{
+	outline:none;
 }
 
 .naviText:hover{
@@ -143,157 +120,6 @@
 }
 
 
-.IGicon{
-	position: absolute;
-	top: 17.5px;
-	right: 35px;
-	height: 20px;
-	width: 20px;
-	background-size:cover;
-	transition: 0.3s;
-}
-.Homeicon{
-	position: absolute;
-	top: 17.5px;
-	right: 60px;
-	height: 20px;
-	width: 20px;
-	background-size:cover;
-	transition: 0.3s;
-}
-
-
-
-/*漢堡選單按鈕*/
-#sidebarBtn {
-	background:rgb(255, 255, 255);
-	border-radius:500px;
-	padding:10px;
-	cursor:pointer;
-	position: fixed;
-	top:5px;
-	left: 5px;
-	transition: 0.5s;
-	z-index: 20;
-}
-
-#sidebarBtn.active{
-	background:rgb(86, 108, 165);
-	margin-left: 180px;
-}
-
-.main-item {
-	width:20px;
-	height:20px;
-	position:relative;
-}
-
-.line {
-	position: absolute;
-	height: 2px;
-	width:100%;
-	background:rgb(86, 108, 165);
-	border-radius:10px;
-	transition: all cubic-bezier(0.25, 0.1, 0.28, 1.54) 0.32s;
-}
-
-.line01 {
-	top:19%;
-}
-
-.line02 {
-	top:49%;
-}
-
-.line03 {
-	top:79%;
-}
-
-.menu.close .line01 {
-	background:rgb(255, 255, 255);
-	transform:rotate(45deg);
-	top:49%;
-}
-
-.menu.close .line02, .menu.close .line03 {
-	background:rgb(255, 255, 255);
-	transform:rotate(-45deg);
-	top:49%;
-}
-
-/*漢堡選單box*/
-#sidebar {
-	z-index: 20;
-	height: 100%;
-	position: fixed;
-	left : -180px;
-	top : 0px;
-    width : 180px;
-	background: rgb(86, 108, 165);
-    color: rgb(255, 255, 255);
-	transition: all 0.5s;
-	overflow-y: scroll;
-}
-#sidebar.active{
-	left : 0px;
-}
-
-/*漢堡選單標題*/
-#sidebar .sidebar-header
-{
-	color: rgb(255, 255, 255);
-	padding: 20px 20px 0px 20px;
-}
-/*漢堡選單內容*/
-#sidebar ul li.active>a,
-a[aria-expanded="true"] {
-    color: #fff;
-    background: #6d7fcc;
-}
-a[data-toggle="collapse"] {
-    position: relative;
-}
-.dropdown-toggle::after {
-    display: block;
-    position: absolute;
-    top: 50%;
-	right: 80px;
-	transform: translateY(-50%);
-	
-}
-
-#sidebar ul.components{
-	padding: 20px 0px;
-}
-
-#sidebar ul li{
-	padding-bottom: 10px;
-}
-#sidebar ul li h6{
-	padding-left: 40px;
-}
-#sidebar ul li a{
-	color: rgb(255, 255, 255);
-	padding: 5px 0 5px 20px; 
-	font-size: h6;
-	display: block;
-	transition: all 0.5s;
-}
-#sidebar ul li a:hover{
-	text-decoration: none;
-    background:#6d7fcc;
-}
-
-.linkText{
-	font-size: 15px;
-	margin-left: 35px;
-}
-
-#homeLink{
-	margin-left: 0;
-}
-
-
 /*RWD*/
 @media(max-width: 950px){
 	.navi_content{
@@ -308,13 +134,13 @@ a[data-toggle="collapse"] {
 }
 
 @media(min-width:768px){
-	#sidebarBtn,#sidebar,.logo{
+	.logo{
 		display: none;
 	}
 }
 
 @media(max-width:767px){
-	.Homeicon,.TopLogoBox,.navi_content{
+	.navi_content{
 		display: none;
 	}
 
@@ -322,9 +148,5 @@ a[data-toggle="collapse"] {
 		height: 50px;
 		position: fixed;
 		top:0;
-	}
-
-	.FBicon,.IGicon,.Homeicon{
-		position: fixed;
 	}
 }

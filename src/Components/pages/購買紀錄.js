@@ -1,11 +1,8 @@
 import React from "react";
 import "../../css/container排版.css";
-import NaviBar from "../tools/naviBar"
-import {Link}  from "react-router-dom";
 import GameTable from "../tools/遊戲表格"
-import Button from 'react-bootstrap/Button';
   
-class GameMange extends React.Component{
+class OrderRecoder extends React.Component{
     constructor(props){
         super(props);
     }
@@ -24,18 +21,13 @@ class GameMange extends React.Component{
 
         return (
             <div>
-                <NaviBar/>
                 <div style={{width:"100%",display:"flex",justifyContent:"center"}}>
                     <div className="Mycontainer" id="MainContainer" style={{paddingTop:"20px"}}>
                         <div className="TitleDiv" style={CenterStyle}>
-                            <h2 style={{color:"white",paddingTop:"170px"}}>遊戲管理：管理架上遊戲</h2>
+                            <h2 style={{color:"white",paddingTop:"120px"}}>您的購買紀錄</h2>
                         </div>
 
-                        <GameTable contact={{tableType:"manage"}}/>
-                        
-                        <Link className="ButtonDiv" style={CenterStyle} to ="/gameBox">
-                            <Button variant="success" style={gameBoxStyle}>查看遊戲庫</Button>
-                        </Link>
+                        <GameTable contact={{tableType:"orderRecoder"}}/>
                     </div>
                 </div>
             </div>
@@ -43,4 +35,4 @@ class GameMange extends React.Component{
     }
 }
 
-export default GameMange;
+export default OrderRecoder;

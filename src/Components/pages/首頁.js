@@ -1,15 +1,19 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import {Link}  from "react-router-dom";
 import "../../css/container排版.css";
 import "../../css/遊戲排版.css"
+import NaviBar from "../tools/naviBar"
 import Carousels from '../tools/carousels';
 import GameTtile from '../tools/gameTitle';
 import ImgText from "../tools/imgText";
 import titleImg from '../../img/gameTitle.jpg';
 import { relative } from "path";
-
-class Article1 extends React.Component {
-    constructor(props) {
+import com1 from "../../img/周邊1.jpg";
+import com2 from "../../img/周邊2.jpg";
+import com3 from "../../img/周邊3.jpg";
+  
+class Article1 extends React.Component{
+    constructor(props){
         super(props);
         this.state = { list: [] }
     }
@@ -42,6 +46,7 @@ class Article1 extends React.Component {
 
         return (
             <div>
+                <NaviBar/>
                 <Carousels />
                 <div style={{ width: "100%", display: "flex", justifyContent: "center" }}>
                     <div className="Mycontainer" id="MainContainer" style={{ paddingTop: "20px" }}>

@@ -4,6 +4,7 @@ import Birthday from "../tools/DateSelect"
 import DatePicker from "react-datepicker"
 import "../../css/container排版.css"
 
+
 import "react-datepicker/dist/react-datepicker.css";
 
 class SignUp extends React.Component{
@@ -12,17 +13,22 @@ class SignUp extends React.Component{
         this.state={
             Account:null,
             Password:null,
-            Repeat:null,
+            identity:"0",
             FirstName:"",
             SecondName:"",
             Phone:null,
             Email:"",
+            Address:"",
+            card:"VISA",
             creditNum:"",
             creditDate:"",
             creditCVC:"",
             creditUser:"",
             selectCard:props.card,
+            selectidentity:props.identity,
         }
+        this.handleInputChange = this.handleInputChange.bind(this)
+        this.handInsubmit = this.handInsubmit.bind(this)
     }
 
     handleInputChange(e){
@@ -31,15 +37,35 @@ class SignUp extends React.Component{
         this.setState({ [name]: value });
       }
       
-    customValidator(control) {         
-        console.log(this.state.value.password)
-        return {isEqual: control.value == this.state.value.password}
-      }
+      handInsubmit(e){
+        console.log(`輸入的帳號是: ${this.state.Account}`);
+        console.log(`輸入的密碼是: ${this.state.Password}`);
+        console.log(`輸入的身分是: ${this.state.selectidentity}`);
+        console.log(`輸入的姓是: ${this.state.FirstName}`);
+        console.log(`輸入的名是: ${this.state.SecondName}`);
+        console.log(`輸入的地址是: ${this.state.Address}`);
+        console.log(`輸入的電話是: ${this.state.Phone}`);
+        console.log(`輸入的EMAIL是: ${this.state.Email}`);
+        console.log(`輸入的卡類是: ${this.state.selectCard}`)
+        console.log(`輸入的卡號是: ${this.state.creditNum}`);
+        console.log(`輸入的卡期是: ${this.state.creditDate}`);
+        console.log(`輸入的CVC是: ${this.state.creditCVC}`);
+        console.log(`輸入的卡主是: ${this.state.creditUser}`);
+        this.props.history.push("/SignIn");
+    }
 
-    selectCard(e){
+      changeCard(e){
         let card = e.target.value;
+        if (!card) return;
         this.setState({
             selectCard : card,
+        });
+    }
+    changeidentity(e){
+        let identity = e.target.value;
+        if (!identity) return;
+        this.setState({
+            selectidentity:identity,
         });
     }
 
@@ -48,7 +74,7 @@ class SignUp extends React.Component{
             <div style={{width:"100%",display:"flex",justifyContent:"center"}}>
                 <div className="Mycontainer">
                     
-                    <Form  style={{justifyContent:"center"}}>
+                    <Form  style={{justifyContent:"center"}}  onSubmit={this.handInsubmit}>
                     <Form.Row>
                         <Form.Group as={Col} md="4" >
                             <Form.Label className="FormText">輸入帳號</Form.Label>
@@ -74,18 +100,24 @@ class SignUp extends React.Component{
                                     required
                                 />
                         </Form.Group>
-                        <Form.Group as={Col} md="4" >
-                            <Form.Label className="FormText">再輸入一次輸入密碼</Form.Label>
-                                <Form.Control
-                                   type="password" 
-                                   name="Repeat"
-                                   minLength="8"
-                                   maxLength="16"
-                                   placeholder="passwordAgain" 
-                                   onChange={this.handleInputChange.bind(this)}
-                                   onInput={this.customValidator.bind(this)}
-                                   required
-                                />
+                        <Form.Group as={Col} md="4">
+                            <Form.Label className="FormText">選擇您的身分</Form.Label>
+                            <div class="select-box">
+                                <span>
+                                    <select
+                                            onChange={this.changeidentity.bind(this)}
+                                            id = "Identity"
+                                            type="Text"
+                                            name="identity"
+                                            value={this.state.selectidentity}
+                                            
+                                        >
+                                            <option>--身分--</option>
+                                            <option value="1">一般使用者</option>
+                                            <option value="2">管理者</option>
+                                    </select>
+                                </span>
+                            </div>
                         </Form.Group>
                     </Form.Row>
                     <Form.Row>
@@ -114,7 +146,7 @@ class SignUp extends React.Component{
                                 <Form.Control
                                    type="tel" 
                                    pattern="09+[0-9]{8}"
-                                   name="phone"
+                                   name="Phone"
                                    placeholder="09XXXXXXXX" 
                                    title="09XXXXXXXX"
                                    onChange={this.handleInputChange.bind(this)}
@@ -132,6 +164,7 @@ class SignUp extends React.Component{
                                    pattern="[a-zA-Z0-9]+@+gmail+.+com"
                                    placeholder="Ex:123456789@gmail.com" 
                                    title="請輸入gmail"
+                                   onChange={this.handleInputChange.bind(this)}
                                    required
                                 />
                         </Form.Group>
@@ -140,6 +173,8 @@ class SignUp extends React.Component{
                                 <Form.Control
                                    type="Text" 
                                    placeholder="address" 
+                                   name="Address"
+                                   onChange={this.handleInputChange.bind(this)}
                                    required
                                 />
                         </Form.Group>
@@ -152,19 +187,24 @@ class SignUp extends React.Component{
                         </Form.Group>
                     </Form.Row>
                     <Form.Row>
-                    <Form.Group as ={Col}>
+                    <Form.Group as ={Col} >
                         <Form.Label className="FormText">信用卡</Form.Label>
+                        <div class="select-box">
                         <span>
                              <select
+                                    onChange={this.changeCard.bind(this)}
                                     id = "select-Card"
-                                    onChange="selectCard"
+                                    type="Text"
+                                    name="card"
                                     value={this.state.selectCard}
                                 >
+                                    <option>--卡類--</option>
                                     <option value="VISA">VISA</option>
                                     <option value="JCP">JCP</option>
                                     <option value="MasterCard">MasterCard</option>
                             </select>
                         </span>
+                        </div>
                     </Form.Group>
                     </Form.Row>
                     <Form.Row>
@@ -176,6 +216,7 @@ class SignUp extends React.Component{
                                    minLength="16"
                                    maxLength="16"
                                    placeholder="卡號" 
+                                   onChange={this.handleInputChange.bind(this)}
                                    required
                                 />
                         </Form.Group>
@@ -187,6 +228,7 @@ class SignUp extends React.Component{
                                    minLength="3"
                                    maxLength="3"
                                    placeholder="CVC" 
+                                   onChange={this.handleInputChange.bind(this)}
                                    required
                                 />
                         </Form.Group>
@@ -194,9 +236,9 @@ class SignUp extends React.Component{
                             <Form.Control 
                                    type="text" 
                                    name="creditDate"
-                                   pattern="[0-9]{2}+/+[0-3]{1}+[0-9]{1}"
+                                   pattern="[0-9]{2}+/+[0-9]{2}"
+                                   onChange={this.handleInputChange.bind(this)}
                                    placeholder="YY/MM" 
-                                   required
                                 />
                         </Form.Group>
                         <Form.Group as={Col} md="4">
@@ -204,6 +246,7 @@ class SignUp extends React.Component{
                                    type="text" 
                                    name="creditUser"
                                    placeholder="UserName" 
+                                   onChange={this.handleInputChange.bind(this)}
                                    required
                                 />
                         </Form.Group>

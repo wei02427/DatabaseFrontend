@@ -9,19 +9,38 @@ import "../../css/Account登入排版.css"
 class SignIn extends React.Component{
     constructor(props){
         super(props);
+        this.state={
+            Account:"",
+            password:"",
+        }
+        this.handleInputChange = this.handleInputChange.bind(this)
+        this.handInsubmit = this.handInsubmit.bind(this)
+    }
+    handleInputChange(e){
+        const { name, value } = e.target;
+        
+        this.setState({ [name]: value });
+      }
+      handInsubmit(e){
+        console.log(`輸入的帳號是: ${this.state.Account}`);
+        console.log(`輸入的密碼是: ${this.state.password}`);
+        this.props.history.push("/");
     }
 
     render(){
         return(
             <div style={{width:"100%",display:"flex",justifyContent:"center"}}>
                 <div className="Mycontainer">
-                    <Form style={{display:"flex",flexDirection:"column",alignItems:"center"}}>
+                    <Form style={{display:"flex",flexDirection:"column",alignItems:"center"}} onSubmit={this.handInsubmit}>
                         
                         <Form.Group controlId="formBasicAccount"style={{width:"25%",alignItems:"center"}}>
                         <Form.Label className="FormText">帳戶名稱:</Form.Label>
                             <Form.Control 
                                 type="Account" 
+                                name="Account"
+                                minLength="8"
                                 placeholder="Account" 
+                                onChange={this.handleInputChange.bind(this)}
                                 required    
                             />
                             <Form.Control.Feedback type="invalid" className="FormText">
@@ -32,7 +51,10 @@ class SignIn extends React.Component{
                         <Form.Label className="FormText">密碼</Form.Label>
                             <Form.Control 
                                 type="password" 
+                                name="password"
+                                minLength="8"
                                 placeholder="Password" 
+                                onChange={this.handleInputChange.bind(this)}
                                 required
                             />
                             <Form.Control.Feedback type="invalid" className="FormText">
@@ -40,13 +62,15 @@ class SignIn extends React.Component{
                             </Form.Control.Feedback>
                         </Form.Group>
                         <Button variant="primary" type="Submit" >
-                        Sign In
+                            Sign In
                         </Button>
                         <Divider className="divider"></Divider>
                         <FormGroup>
                             <FormLabel className="SignUp">沒有STING帳戶?</FormLabel>
                             <Button variant="primary" type="button" >
-                                <Link className="FormText" to ="/signUp">Sign up</Link>
+                                <Link className="FormText" to ="/SignUp">
+                                    Sign up
+                                </Link>
                             </Button>
                         </FormGroup>
                     </Form>
