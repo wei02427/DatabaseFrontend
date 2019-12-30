@@ -38,8 +38,11 @@ class DateSelect extends Component {
       });
     });
   }
+
+
   yearChange(e) {
     let year = e.target.value;
+    this.props.handleYear(year);
     if (!year) return;
     this.setState({
       selectYear: year,
@@ -56,6 +59,7 @@ class DateSelect extends Component {
 
   monthChange(e) {
     let month = e.target.value;
+    this.props.handleMouth(month);
     if (!month) return;
     month = parseInt(month, 10);
     let d = new Date(this.state.selectYear, month, 0);
@@ -74,11 +78,13 @@ class DateSelect extends Component {
       this.props.onChange(
         new Date(`${this.state.selectYear}/${month}/1 00:00:00`)
       );
+      this.props.handleMouth(this.state.selectMonth);
     }
   }
 
   dayChange(e) {
     let day = e.target.value;
+    this.props.handleDay(day);
     if (!day) return;
     this.setState({
       selectDay: day,
@@ -89,6 +95,7 @@ class DateSelect extends Component {
           `${this.state.selectYear}/${this.state.selectMonth}/${day} 00:00:00`
         )
       );
+      this.props.handleDay(this.state.selectDay);
     }
   }
   render() {

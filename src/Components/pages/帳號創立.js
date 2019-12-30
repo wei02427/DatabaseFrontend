@@ -13,11 +13,14 @@ class SignUp extends React.Component{
         this.state={
             Account:null,
             Password:null,
-            identity:"0",
+            Sex:"M",
             FirstName:"",
             SecondName:"",
             Phone:null,
             Email:"",
+            Birth_Y:"Y",
+            Birth_M:"M",
+            Birth_D:"D",
             Address:"",
             card:"VISA",
             creditNum:"",
@@ -25,10 +28,13 @@ class SignUp extends React.Component{
             creditCVC:"",
             creditUser:"",
             selectCard:props.card,
-            selectidentity:props.identity,
+            selectSex:props.Sex,
         }
         this.handleInputChange = this.handleInputChange.bind(this)
         this.handInsubmit = this.handInsubmit.bind(this)
+        this.handleGetD = this.handleGetD.bind(this)
+        this.handleGetM = this.handleGetM.bind(this)
+        this.handleGetY = this.handleGetY.bind(this)
     }
 
     handleInputChange(e){
@@ -40,13 +46,16 @@ class SignUp extends React.Component{
       handInsubmit(e){
         console.log(`輸入的帳號是: ${this.state.Account}`);
         console.log(`輸入的密碼是: ${this.state.Password}`);
-        console.log(`輸入的身分是: ${this.state.selectidentity}`);
+        console.log(`輸入的性別是: ${this.state.selectSex}`);
         console.log(`輸入的姓是: ${this.state.FirstName}`);
         console.log(`輸入的名是: ${this.state.SecondName}`);
         console.log(`輸入的地址是: ${this.state.Address}`);
         console.log(`輸入的電話是: ${this.state.Phone}`);
         console.log(`輸入的EMAIL是: ${this.state.Email}`);
-        console.log(`輸入的卡類是: ${this.state.selectCard}`)
+        console.log(`輸入的年是: ${this.state.Birth_Y}`);
+        console.log(`輸入的月是: ${this.state.Birth_M}`);
+        console.log(`輸入的日是: ${this.state.Birth_D}`);
+        console.log(`輸入的卡類是: ${this.state.selectCard}`);
         console.log(`輸入的卡號是: ${this.state.creditNum}`);
         console.log(`輸入的卡期是: ${this.state.creditDate}`);
         console.log(`輸入的CVC是: ${this.state.creditCVC}`);
@@ -61,11 +70,32 @@ class SignUp extends React.Component{
             selectCard : card,
         });
     }
-    changeidentity(e){
-        let identity = e.target.value;
-        if (!identity) return;
+    changeSex(e){
+        let Sex = e.target.value;
+        if (!Sex) return;
         this.setState({
-            selectidentity:identity,
+            selectSex:Sex,
+        });
+    }
+
+    handleGetY(YY) {
+        console.log(`生日年=${YY}`)
+        this.setState({
+            Birth_Y: YY
+        });
+    }
+
+    handleGetM(MM){
+        console.log(`生日月=${MM}`)
+        this.setState({
+            Birth_M: MM
+        });
+    }
+
+    handleGetD(DD){
+        console.log(`生日日=${DD}`)
+        this.setState({
+            Birth_D: DD
         });
     }
 
@@ -101,20 +131,21 @@ class SignUp extends React.Component{
                                 />
                         </Form.Group>
                         <Form.Group as={Col} md="4">
-                            <Form.Label className="FormText">選擇您的身分</Form.Label>
+                            <Form.Label className="FormText">性別</Form.Label>
                             <div class="select-box">
                                 <span>
                                     <select
-                                            onChange={this.changeidentity.bind(this)}
-                                            id = "Identity"
+                                            onChange={this.changeSex.bind(this)}
+                                            id = "sex"
                                             type="Text"
-                                            name="identity"
-                                            value={this.state.selectidentity}
+                                            name="Sex"
+                                            value={this.state.selectSex}
                                             
                                         >
-                                            <option>--身分--</option>
-                                            <option value="1">一般使用者</option>
-                                            <option value="2">管理者</option>
+                                            <option>--性別--</option>
+                                            <option value="Man">男性</option>
+                                            <option value="Woman">女性</option>
+                                            <option value="secret">無可奉告</option>
                                     </select>
                                 </span>
                             </div>
@@ -183,7 +214,7 @@ class SignUp extends React.Component{
                     <Form.Row>
                         <Form.Group>
                             <Form.Label className="FormText">生日</Form.Label>
-                            <Birthday/>
+                            <Birthday handleYear = {this.handleGetY} handleMouth = {this.handleGetM} handleDay = {this.handleGetD}/>
                         </Form.Group>
                     </Form.Row>
                     <Form.Row>
