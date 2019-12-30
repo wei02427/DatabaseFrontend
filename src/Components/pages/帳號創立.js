@@ -13,20 +13,20 @@ class SignUp extends React.Component {
         this.state={
             Account:null,
             Password:null,
-            Sex:"M",
-            FirstName:"",
-            SecondName:"",
+            Sex:null,
+            FirstName:null,
+            SecondName:null,
             Phone:null,
-            Email:"",
-            Birth_Y:"Y",
-            Birth_M:"M",
-            Birth_D:"D",
-            Address:"",
-            card:"VISA",
-            creditNum:"",
-            creditDate:"",
-            creditCVC:"",
-            creditUser:"",
+            Email:null,
+            Birth_Y:null,
+            Birth_M:null,
+            Birth_D:null,
+            Address:null,
+            card:null,
+            creditNum:null,
+            creditDate:null,
+            creditCVC:null,
+            creditUser:null,
             selectCard:props.card,
             selectSex:props.Sex,
         }
@@ -59,7 +59,8 @@ class SignUp extends React.Component {
                 phone: this.state.Phone,
                 password: this.state.Password,
                 credit: this.state.creditNum,
-                birthday: '1999-5-5',
+                birthday: this.state.Birth_Y+'-'+this.state.Birth_M+'-'+this.state.Birth_D,
+                sex:this.state.Sex,
                 address: this.state.Address,
                 account: this.state.Account
             })
@@ -71,36 +72,7 @@ class SignUp extends React.Component {
         }).catch((err) => {
             console.log('錯誤:', err);
         })
-        // fetch('http://localhost:9000/register', {
-        //     method: 'post',
-        //     //mode: 'cors',
-        //     headers:{
-        //         'Content-Type': 'application/json'
-        //     },
-        //     body: JSON.stringify(
-        //         fname = this.state.FirstName,
-        //         lname = this.state.SecondName,
-        //         email = this.state.Email,
-        //         phone = this.state.Phone,
-        //         password = this.state.Password,
-        //         credit = this.state.creditNum,
-        //         birthday = '1999-5-5',
-        //         address = this.state.Address,
-        //         account = this.state.Account
-        //     )
-
-        // })
-        //     .then(function (data) {
-        //         return data.json()
-        //     })
-        //     .then(function (data) {
-        //         localStorage.setItem('token', data.token)
-        //         console.log(localStorage.getItem('token'))
-        //     })
-        //     .catch(function (err) {
-        //         console.log(err)
-        //     })
-
+   
         console.log(`輸入的帳號是: ${this.state.Account}`);
         console.log(`輸入的密碼是: ${this.state.Password}`);
         console.log(`輸入的性別是: ${this.state.selectSex}`);
