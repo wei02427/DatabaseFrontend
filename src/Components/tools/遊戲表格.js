@@ -4,6 +4,7 @@ import '../../css/遊戲表格樣式.css'
 import Button from 'react-bootstrap/Button';
 import { Link } from "react-router-dom";
 import Form from "react-bootstrap/FormControl";
+import "../../css/container排版.css"
 import { Checkbox } from "semantic-ui-react";
   
 class GameTable extends React.Component{
@@ -11,11 +12,25 @@ class GameTable extends React.Component{
         super(props);
         this.state={
             CartList:[],
+            money:"",
         };
         this.handleCartReset=this.handleCartReset.bind(this);
         this.handleInputChange= this.handleInputChange.bind(this);
         this.deleteChecked = this.deleteChecked.bind(this);
         this.handleCartReset();
+    }
+
+    handleBuy(){
+        var price=0;
+        for(var i=0;i<this.state.CartList.length;i++){
+              if(this.state.CartList[i].checked==true){
+                price +=this.state.CartList[i].Price;
+              }
+          }
+          console.log(price);
+          
+
+          this.setState({money:toString(price)});
     }
 
     handleCartReset(){          //購物車資料
@@ -67,7 +82,7 @@ class GameTable extends React.Component{
       }
 
     render(){
-
+        var d = new Date();
         
         if(this.props.contact.tableType==="manage"){
             return (
@@ -176,6 +191,7 @@ class GameTable extends React.Component{
             );
         }else if(this.props.contact.tableType==="Cart"){
             return (
+            <div width ="300px" align='center' className="bodyField">
                 <div className="gameTable">
                     <table>
                         <thead>
@@ -204,12 +220,20 @@ class GameTable extends React.Component{
                                     </tr>
                                 )
                             }
-
                         </tbody>
                         <Button   onClick={this.deleteChecked} type="Button">刪除</Button>
                     </table>
                 </div>
+<<<<<<< HEAD
 
+=======
+                
+                <Button style={{backgroundColor:"red"}}  onClick={this.deleteChecked} className="Carttable" type="Button">刪除</Button>
+                <Link  to ={{pathname:"/orderPage",state:{id:"1561561",price:this.state.money,time:"拿後端"}}} >
+                    <Button style={{backgroundColor:"green"}} onClick={this.handleBuy.bind(this)} className="Carttable" type="Submit">確認購買</Button>
+                </Link>
+            </div>
+>>>>>>> de44e9ed6a82f8b48431e9b01c963eda01ab7262
                 
             );
         }
