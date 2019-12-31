@@ -206,11 +206,10 @@ class GameTable extends React.Component{
                             }
 
                         </tbody>
+                        <Button   onClick={this.deleteChecked} type="Button">刪除</Button>
                     </table>
                 </div>
-                <div Style={{manage:"auto"}}>
-                    <Button   onClick={this.deleteChecked} type="Button">刪除</Button>
-                </div>
+
                 
             );
         }
