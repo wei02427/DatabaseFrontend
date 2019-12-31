@@ -11,6 +11,7 @@ import SignUp from './Components/pages/帳號創立'
 import OrderRecoder from './Components/pages/購買紀錄'
 import ChangeGameData from './Components/pages/編輯&新增遊戲'
 import PersonalInfo from './Components/pages/個人資料'
+import Cart from './Components/pages/購物車'
 import "./css/gotop.css"
 
 class App extends React.Component{
@@ -33,6 +34,7 @@ class App extends React.Component{
                         <Route path="/orderRecoder" component={OrderRecoder}/>
                         <Route path="/changeGameData/:action" component={ChangeGameData}/>
                         <Route path="/personalInfo" component={PersonalInfo}/>
+                        <Route path="/Cart" component={Cart}/>
                         <div className="goTop">TOP</div>
                         <Footer/>
                     </div>

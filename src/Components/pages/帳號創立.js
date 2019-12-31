@@ -274,31 +274,6 @@ class SignUp extends React.Component {
                             <Birthday handleYear = {this.handleGetY} handleMouth = {this.handleGetM} handleDay = {this.handleGetD}/>
                         </Form.Group>
                     </Form.Row>
-                    <Form.Row>
-                    <Form.Group as ={Col} >
-                        <Form.Label className="FormText">信用卡</Form.Label>
-                        <div class="select-box">
-                        <span>
-                             <select
-                                    onChange={this.changeCard.bind(this)}
-                                    id = "select-Card"
-                                    type="Text"
-                                    placeholder="address"
-                                    name="Address"
-                                    onChange={this.handleInputChange.bind(this)}
-                                    required
-                                />
-                            </span>
-                        </div>
-                        </Form.Group>
-
-                        </Form.Row>
-                        <Form.Row>
-                            <Form.Group>
-                                <Form.Label className="FormText">生日</Form.Label>
-                                <Birthday />
-                            </Form.Group>
-                        </Form.Row>
                         <Form.Row>
                             <Form.Group as={Col} >
                                 <Form.Label className="FormText">信用卡</Form.Label>

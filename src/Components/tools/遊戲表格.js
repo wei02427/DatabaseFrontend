@@ -3,6 +3,8 @@ import { relative } from "path";
 import '../../css/遊戲表格樣式.css'
 import Button from 'react-bootstrap/Button';
 import { Link } from "react-router-dom";
+import Form from "react-bootstrap/FormControl";
+import { Checkbox } from "semantic-ui-react";
   
 class GameTable extends React.Component{
     constructor(props){
@@ -110,6 +112,41 @@ class GameTable extends React.Component{
                                 <td width="150px" align='center' className="bodyField">106590028</td>
                                 <td width="150px" align='center' className="bodyField">2020.3.6</td>
                                 <td width="150px" align='center' className="bodyField">700</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            );
+        }else if(this.props.contact.tableType==="Cart"){
+            return (
+                <div className="gameTable">
+                    <table>
+                        <thead>
+                            <tr className="tableHead">
+                                <td width="150px" align='center' className="headField">勾選購買</td>
+                                <td width="150px" align='center' className="headField">名稱</td>
+                                <td width="150px" align='center' className="headField">種類</td>
+                                <td width="150px" align='center' className="headField">價格</td>
+                            </tr>
+                        </thead>
+                        <tbody>
+                             <tr>
+                                <td width="150px" align='center' className="bodyField">
+
+                                </td>
+                                <td width="150px" align='center' className="bodyField">魔物獵人</td>
+                                <td width="150px" align='center' className="bodyField">動作遊戲</td>
+                                <td width="150px" align='center' className="bodyField">1800</td>
+                            </tr>
+    
+                            <tr>
+                                
+                                <td width="150px" align='center' className="bodyField">
+                                    
+                                </td>
+                                <td width="150px" align='center' className="bodyField">刺客教條:兄弟會</td>
+                                <td width="150px" align='center' className="bodyField">動作遊戲</td>
+                                <td width="150px" align='center' className="bodyField">900</td>
                             </tr>
                         </tbody>
                     </table>

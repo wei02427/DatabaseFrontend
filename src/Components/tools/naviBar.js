@@ -36,7 +36,7 @@ class Navbar extends React.Component{
                         </li>
 
                         <li >
-                            <button className="naviText">策略類型</button>
+                            <Link className="naviText" to="/Cart">策略類型</Link>
                         </li>
 
                         <li >
