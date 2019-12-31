@@ -10,22 +10,60 @@ class GameTable extends React.Component{
     constructor(props){
         super(props);
         this.state={
-            isBuy:[],
-            CartName:["魔物獵人","刺客教條:兄弟會"],
-            CartType:["動作遊戲","動作遊戲"],
-            CartPrice:[1800,900],
-            
+            CartList:[],
+        };
+        this.handleCartReset=this.handleCartReset.bind(this);
+        this.handleInputChange= this.handleInputChange.bind(this);
+        this.deleteChecked = this.deleteChecked.bind(this);
+        this.handleCartReset();
+    }
+
+    handleCartReset(){          //購物車資料
+        this.state.CartList=[];
+
+        var Cartitem={
+            Game_id:0,
+            Name:"魔物獵人",
+            Type:"動作遊戲",
+            Price:1800,
+            checked:false,
         }
+        this.state.CartList.push(Cartitem);
+
+        Cartitem={
+            Game_id:1,
+            Name:"刺客教條:兄弟會",
+            Type:"動作遊戲",
+            Price:900,
+            checked:false,
+        }
+        this.state.CartList.push(Cartitem);
+
+        this.setState({CartList:this.state.CartList});
     }
     
     handleInputChange(event) {
-        const target = event.target;
-        const value = target.type === 'checkbox' ? target.checked : target.value;
-        const name = target.name;
-    
-        this.setState({
-          [name]: value
-        });
+        console.log("Game_id:"+event.target.id+" checked: "+event.target.checked);
+        for(const each of this.state.CartList){
+            if(each.Name == event.target.name){
+                each.checked = event.target.checked;
+            }
+        }
+        this.setState({CartList:this.state.CartList});
+      }
+
+      deleteChecked(event){
+          
+          for(var i=0;i<this.state.CartList.length;i++){
+            console.log(`Delete ${this.state.CartList[i].checked}`);
+              if(this.state.CartList[i].checked===true){
+                
+                  this.state.CartList.splice(i,1);
+                  i--;
+              }
+          }
+
+          this.setState({CartList:this.state.CartList});
       }
 
     render(){
@@ -149,37 +187,31 @@ class GameTable extends React.Component{
                             </tr>
                         </thead>
                         <tbody>
-                             <tr>
-                             <td width="150px" align='center' className="bodyField">
-                                    <input
-                                        name= "isBuy"
-                                        type = "checkbox"
-                                        checked={this.state.isBuy[0]}
-                                        onChange={this.handleInputChange}
-                                        />
-                                </td>
-                                <td width="150px" align='center' className="bodyField">{this.state.CartName[0]}</td>
-                                <td width="150px" align='center' className="bodyField">{this.state.CartType[0]}</td>
-                                <td width="150px" align='center' className="bodyField">{this.state.CartPrice[0]}</td>
-                            </tr>
-    
-                            <tr>
-                                
-                                <td width="150px" align='center' className="bodyField">
-                                    <input
-                                        name= "isBuy"
-                                        type = "checkbox"
-                                        checked={this.state.isBuy[1]}
-                                        onChange={this.handleInputChange}
-                                        />
-                                </td>
-                                <td width="150px" align='center' className="bodyField">{this.state.CartName[1]}</td>
-                                <td width="150px" align='center' className="bodyField">{this.state.CartType[1]}</td>
-                                <td width="150px" align='center' className="bodyField">{this.state.CartPrice[1]}</td>
-                            </tr>
+                            {
+                            this.state.CartList.map((Cartitem)=>
+                                    <tr>
+                                    <td width="150px" align='center' className="bodyField">
+                                            <Checkbox
+                                                id = {Cartitem.Game_id}
+                                                name = {Cartitem.Name}
+                                                onChange={this.handleInputChange}
+                                                checked={Cartitem.checked}
+                                                />
+                                        </td>
+                                        <td width="150px" align='center' className="bodyField">{Cartitem.Name}</td>
+                                        <td width="150px" align='center' className="bodyField">{Cartitem.Type}</td>
+                                        <td width="150px" align='center' className="bodyField">{Cartitem.Price}</td>
+                                    </tr>
+                                )
+                            }
+
                         </tbody>
                     </table>
                 </div>
+                <div Style={{manage:"auto"}}>
+                    <Button   onClick={this.deleteChecked} type="Button">刪除</Button>
+                </div>
+                
             );
         }
     }
