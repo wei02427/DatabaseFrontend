@@ -10,25 +10,24 @@ import "react-datepicker/dist/react-datepicker.css";
 class SignUp extends React.Component {
     constructor(props) {
         super(props)
-        this.state={
-            Account:null,
-            Password:null,
-            Sex:null,
-            FirstName:null,
-            SecondName:null,
-            Phone:null,
-            Email:null,
-            Birth_Y:null,
-            Birth_M:null,
-            Birth_D:null,
-            Address:null,
-            card:null,
-            creditNum:null,
-            creditDate:null,
-            creditCVC:null,
-            creditUser:null,
-            selectCard:props.card,
-            selectSex:props.Sex,
+        this.state = {
+            Account: null,
+            Password: null,
+            FirstName: null,
+            SecondName: null,
+            Phone: null,
+            Email: null,
+            Birth_Y: null,
+            Birth_M: 1,
+            Birth_D: 1,
+            Address: null,
+            card: null,
+            creditNum: null,
+            creditDate: null,
+            creditCVC: null,
+            creditUser: null,
+            selectCard: props.card,
+            selectSex: props.Sex,
         }
         this.handleInputChange = this.handleInputChange.bind(this)
         this.handInsubmit = this.handInsubmit.bind(this)
@@ -59,20 +58,25 @@ class SignUp extends React.Component {
                 phone: this.state.Phone,
                 password: this.state.Password,
                 credit: this.state.creditNum,
-                birthday: this.state.Birth_Y+'-'+this.state.Birth_M+'-'+this.state.Birth_D,
-                sex:this.state.Sex,
+                birthday: this.state.Birth_Y + '-' + this.state.Birth_M + '-' + this.state.Birth_D,
+                sex: this.state.selectSex,
                 address: this.state.Address,
                 account: this.state.Account
             })
         }).then((response) => {
             return response.json();
         }).then((data) => {
-            localStorage.setItem('token', data.token)
-            console.log(localStorage.getItem('token'))
+            if (data.err != null) {
+                localStorage.setItem('token', data.token)
+                console.log(localStorage.getItem('token'))
+            }
+            else{
+                throw err
+            }
         }).catch((err) => {
             console.log('錯誤:', err);
         })
-   
+
         console.log(`輸入的帳號是: ${this.state.Account}`);
         console.log(`輸入的密碼是: ${this.state.Password}`);
         console.log(`輸入的性別是: ${this.state.selectSex}`);
@@ -99,11 +103,11 @@ class SignUp extends React.Component {
             selectCard: card,
         });
     }
-    changeSex(e){
+    changeSex(e) {
         let Sex = e.target.value;
         if (!Sex) return;
         this.setState({
-            selectSex:Sex,
+            selectSex: Sex,
         });
     }
 
@@ -114,14 +118,14 @@ class SignUp extends React.Component {
         });
     }
 
-    handleGetM(MM){
+    handleGetM(MM) {
         console.log(`生日月=${MM}`)
         this.setState({
             Birth_M: MM
         });
     }
 
-    handleGetD(DD){
+    handleGetD(DD) {
         console.log(`生日日=${DD}`)
         this.setState({
             Birth_D: DD
@@ -158,31 +162,31 @@ class SignUp extends React.Component {
                                     onChange={this.handleInputChange.bind(this)}
                                     required
                                 />
-                        </Form.Group>
-                        <Form.Group as={Col} md="4">
-                            <Form.Label className="FormText">性別</Form.Label>
-                            <div class="select-box">
-                                <span>
-                                    <select
+                            </Form.Group>
+                            <Form.Group as={Col} md="4">
+                                <Form.Label className="FormText">性別</Form.Label>
+                                <div class="select-box">
+                                    <span>
+                                        <select
                                             onChange={this.changeSex.bind(this)}
-                                            id = "sex"
+                                            id="sex"
                                             type="Text"
                                             name="Sex"
                                             value={this.state.selectSex}
-                                            
+
                                         >
                                             <option>--性別--</option>
                                             <option value="Man">男性</option>
                                             <option value="Woman">女性</option>
                                             <option value="secret">無可奉告</option>
-                                    </select>
-                                </span>
-                            </div>
-                        </Form.Group>
-                    </Form.Row>
-                    <Form.Row>
-                        <Form.Group as={Col} md="4" >
-                            <Form.Label className="FormText">姓</Form.Label>
+                                        </select>
+                                    </span>
+                                </div>
+                            </Form.Group>
+                        </Form.Row>
+                        <Form.Row>
+                            <Form.Group as={Col} md="4" >
+                                <Form.Label className="FormText">姓</Form.Label>
                                 <Form.Control
                                     type="name"
                                     placeholder="First Name"
@@ -231,21 +235,21 @@ class SignUp extends React.Component {
                             <Form.Group as={Col} md="6">
                                 <Form.Label className="FormText">地址</Form.Label>
                                 <Form.Control
-                                   type="Text" 
-                                   placeholder="address" 
-                                   name="Address"
-                                   onChange={this.handleInputChange.bind(this)}
-                                   required
+                                    type="Text"
+                                    placeholder="address"
+                                    name="Address"
+                                    onChange={this.handleInputChange.bind(this)}
+                                    required
                                 />
-                        </Form.Group>
-                        
-                    </Form.Row>
-                    <Form.Row>
-                        <Form.Group>
-                            <Form.Label className="FormText">生日</Form.Label>
-                            <Birthday handleYear = {this.handleGetY} handleMouth = {this.handleGetM} handleDay = {this.handleGetD}/>
-                        </Form.Group>
-                    </Form.Row>
+                            </Form.Group>
+
+                        </Form.Row>
+                        <Form.Row>
+                            <Form.Group>
+                                <Form.Label className="FormText">生日</Form.Label>
+                                <Birthday handleYear={this.handleGetY} handleMouth={this.handleGetM} handleDay={this.handleGetD} />
+                            </Form.Group>
+                        </Form.Row>
                         <Form.Row>
                             <Form.Group as={Col} >
                                 <Form.Label className="FormText">信用卡</Form.Label>

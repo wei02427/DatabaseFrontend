@@ -8,10 +8,7 @@ import GameTtile from '../tools/gameTitle';
 import ImgText from "../tools/imgText";
 import titleImg from '../../img/gameTitle.jpg';
 import { relative } from "path";
-import com1 from "../../img/周邊1.jpg";
-import com2 from "../../img/周邊2.jpg";
-import com3 from "../../img/周邊3.jpg";
-  
+
 class Article1 extends React.Component{
     constructor(props){
         super(props);
