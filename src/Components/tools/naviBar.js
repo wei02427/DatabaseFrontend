@@ -24,19 +24,19 @@ class Navbar extends React.Component{
                         </li>  
 
                         <li >
-                            <Link className="naviText" to="/gmaeManage">休閒類型</Link>
+                            <button className="naviText">休閒推薦</button>
+                        </li>
+
+                        <li>
+                            <button className="naviText">冒險類型</button>
                         </li>
 
                         <li >
-                            <Link className="naviText" to="/orderRecoder">冒險類型</Link>
+                            <button className="naviText">競速類型</button>
                         </li>
 
                         <li >
-                            <Link className="naviText" to="/personalInfo">競速類型</Link>
-                        </li>
-
-                        <li >
-                            <Link className="naviText" to="/Cart">策略類型</Link>
+                            <button className="naviText">策略類型</button>
                         </li>
 
                         <li >
