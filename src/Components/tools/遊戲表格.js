@@ -223,17 +223,12 @@ class GameTable extends React.Component{
                         </tbody>
                         <Button   onClick={this.deleteChecked} type="Button">刪除</Button>
                     </table>
-                </div>
-<<<<<<< HEAD
-
-=======
-                
+                </div>          
                 <Button style={{backgroundColor:"red"}}  onClick={this.deleteChecked} className="Carttable" type="Button">刪除</Button>
                 <Link  to ={{pathname:"/orderPage",state:{id:"1561561",price:this.state.money,time:"拿後端"}}} >
                     <Button style={{backgroundColor:"green"}} onClick={this.handleBuy.bind(this)} className="Carttable" type="Submit">確認購買</Button>
                 </Link>
             </div>
->>>>>>> de44e9ed6a82f8b48431e9b01c963eda01ab7262
                 
             );
         }
