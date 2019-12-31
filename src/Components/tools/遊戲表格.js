@@ -9,9 +9,28 @@ import { Checkbox } from "semantic-ui-react";
 class GameTable extends React.Component{
     constructor(props){
         super(props);
+        this.state={
+            isBuy:[],
+            CartName:["魔物獵人","刺客教條:兄弟會"],
+            CartType:["動作遊戲","動作遊戲"],
+            CartPrice:[1800,900],
+            
+        }
     }
     
+    handleInputChange(event) {
+        const target = event.target;
+        const value = target.type === 'checkbox' ? target.checked : target.value;
+        const name = target.name;
+    
+        this.setState({
+          [name]: value
+        });
+      }
+
     render(){
+
+        
         if(this.props.contact.tableType==="manage"){
             return (
                 <div className="gameTable">
@@ -131,22 +150,32 @@ class GameTable extends React.Component{
                         </thead>
                         <tbody>
                              <tr>
-                                <td width="150px" align='center' className="bodyField">
-
+                             <td width="150px" align='center' className="bodyField">
+                                    <input
+                                        name= "isBuy"
+                                        type = "checkbox"
+                                        checked={this.state.isBuy[0]}
+                                        onChange={this.handleInputChange}
+                                        />
                                 </td>
-                                <td width="150px" align='center' className="bodyField">魔物獵人</td>
-                                <td width="150px" align='center' className="bodyField">動作遊戲</td>
-                                <td width="150px" align='center' className="bodyField">1800</td>
+                                <td width="150px" align='center' className="bodyField">{this.state.CartName[0]}</td>
+                                <td width="150px" align='center' className="bodyField">{this.state.CartType[0]}</td>
+                                <td width="150px" align='center' className="bodyField">{this.state.CartPrice[0]}</td>
                             </tr>
     
                             <tr>
                                 
                                 <td width="150px" align='center' className="bodyField">
-                                    
+                                    <input
+                                        name= "isBuy"
+                                        type = "checkbox"
+                                        checked={this.state.isBuy[1]}
+                                        onChange={this.handleInputChange}
+                                        />
                                 </td>
-                                <td width="150px" align='center' className="bodyField">刺客教條:兄弟會</td>
-                                <td width="150px" align='center' className="bodyField">動作遊戲</td>
-                                <td width="150px" align='center' className="bodyField">900</td>
+                                <td width="150px" align='center' className="bodyField">{this.state.CartName[1]}</td>
+                                <td width="150px" align='center' className="bodyField">{this.state.CartType[1]}</td>
+                                <td width="150px" align='center' className="bodyField">{this.state.CartPrice[1]}</td>
                             </tr>
                         </tbody>
                     </table>

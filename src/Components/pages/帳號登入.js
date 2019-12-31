@@ -56,15 +56,15 @@ class SignIn extends React.Component {
         return (
             <div style={{ width: "100%", display: "flex", justifyContent: "center" }}>
                 <div className="Mycontainer">
-                    <Form style={{ display: "flex", flexDirection: "column", alignItems: "center" }} onSubmit={this.handInsubmit}>
-
-                        <Form.Group controlId="formBasicAccount" style={{ width: "25%", alignItems: "center" }}>
-                            <Form.Label className="FormText">帳戶名稱:</Form.Label>
-                            <Form.Control
-                                type="Account"
+                    <Form style={{display:"flex",flexDirection:"column",alignItems:"center"}} onSubmit={this.handInsubmit}>
+                        
+                        <Form.Group controlId="formBasicAccount"style={{width:"25%",alignItems:"center"}}>
+                        <Form.Label className="FormText">電子郵件:</Form.Label>
+                            <Form.Control 
+                                type="Account" 
                                 name="Account"
                                 minLength="8"
-                                placeholder="Account"
+                                placeholder="E-mail" 
                                 onChange={this.handleInputChange.bind(this)}
                                 required
                             />
