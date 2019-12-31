@@ -31,13 +31,14 @@ class SignIn extends React.Component {
             },
             // body 將 json 轉字串送出
             body: JSON.stringify({
-                email: this.state.Email,
+                email: this.state.Account,
                 password: this.state.Password,
             })
         }).then((response) => {
             return response.json();
         }).then((data) => {
-            if (data.err != null) {
+            console.log(data)
+            if (data.err !== null) {
                 localStorage.setItem('token', data.token)
                 console.log(localStorage.getItem('token'))
             }
