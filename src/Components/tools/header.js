@@ -17,6 +17,7 @@ class Header extends React.Component{
 
     //登出
     LogOut(){
+        localStorage.clear()
         this.setState({
             logState:"noUser"});
     }
