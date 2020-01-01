@@ -112,32 +112,33 @@ class GameTable extends React.Component {
                 return data.json()
             })
             .then(function (data) {
+                console.log(data)
                 let ManageLists = data.map((element) => {
-                    element.state === 1 ? (
+                    return element.state == 1 ? (
                         <tr>
-                            <td width="150px" align='center' className="bodyField">element.name</td>
+                            <td width="150px" align='center' className="bodyField">{element.Gname}</td>
                             <td width="150px" align='center' className="bodyField">{element.type}</td>
-                            <td width="150px" align='center' className="bodyField">element.price</td>
-                            <td width="150px" align='center' className="bodyField">element.AuthorName</td>
+                            <td width="150px" align='center' className="bodyField">{element.price}</td>
+                            <td width="150px" align='center' className="bodyField">{element.Aname}</td>
                             <td width="150px" align='center' className="bodyField">
                                 <Button variant="danger" value={element.state} className="tableButton">下架</Button>
                             </td>
                         </tr>)
-                        : (console.log(`未上架`))
-
+                        : (console.log('沒上架'))
+                    })
+                    console.log(ManageLists)
+                    that.setState({
+                        ManageList: [...that.state.ManageList, ManageLists]
+                    })
                 })
-                that.setState({
-                    ManageList: [...that.state.ManageList, ManageLists]
-                })
-            })
-            .catch(function (err) {
-                console.log(err)
-            })
+                    .catch(function (err) {
+                        console.log(err)
+                    })
 
-    }
+            }
 
     handleReleaseDown(event) {   //刪除
-        for (var i = 0; i < this.state.ManageList.length; i++) {
+                for(var i = 0; i< this.state.ManageList.length; i++) {
             if (this.state.ManageList[i].Game_id == event.target.value) {
                 this.state.ManageList[i].isRelease = false;
                 this.state.ManageList.splice(i, 1);
@@ -151,33 +152,40 @@ class GameTable extends React.Component {
     handleGameBoxReset() {
 
         const that = this;
-        fetch("https://ntutsting.herokuapp.com/testAPI", {
-            method: 'get',
+        const url = "https://ntutsting.herokuapp.com/testAPI"
+        this.setState({ GameBoxList: [] })
+        fetch(url, {
+            method: 'post',
             mode: 'cors',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                type: 'type',
+                state: 'release_state'
+            })
+
         })
             .then(function (data) {
-                console.log('callapi')
                 return data.json()
             })
             .then(function (data) {
-                let GameBoxLists = data.map((element) => {
+                let GameBoxLists = data.map((element) =>
                     <tr>
-                        <td width="150px" align='center' className="bodyField">element.Name</td>
-                        <td width="150px" align='center' className="bodyField">element.Type</td>
+                        <td width="150px" align='center' className="bodyField">{element.Gname}</td>
+                        <td width="150px" align='center' className="bodyField">{element.type}</td>
                         <td width="150px" align='center' className="bodyField">{element.price}</td>
                         {
-                            element.state === true
-                                ? <td width="150px" align='center' className="bodyField">上架中</td>
-                                : <td width="150px" align='center' className="bodyField">未上架</td>
+                            element.state == 1 ? (<td width="150px" align='center' className="bodyField">上架中</td>)
+                                : ((<td width="150px" align='center' className="bodyField">未上架</td>))
                         }
-
                         <td width="150px" align='center' className="bodyField">
-                            <Link to={{ pathname: "/changeGameData/editGame", state: { name: "element.name", authorName: "element.authorName", gameType: "element.type", price: element.price, photo: element.photo, description: element.description, release_state: element.state } }}>
+                            <Link to={{ pathname: "/changeGameData/editGame", state: { name: element.name, authorName: element.AuthorName, gameType: element.type, price: element.price, photo: element.photo, description: element.description, release_state: element.state } }}>
                                 <Button variant="secondary" className="tableButton">編輯</Button>
                             </Link>
                         </td>
                     </tr>
-                })
+                )
                 that.setState({
                     GameBoxList: [...that.state.GameBoxList, GameBoxLists]
                 })

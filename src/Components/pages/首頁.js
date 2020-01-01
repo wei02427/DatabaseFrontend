@@ -29,7 +29,7 @@ class Article1 extends React.Component {
         this.setState({list:[]})
         fetch(url, {
             method: 'post',
-            
+            mode: 'cors',
             headers: {
                 'Content-Type': 'application/json'
             },
