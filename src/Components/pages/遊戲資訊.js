@@ -14,23 +14,9 @@ class GameInfo extends React.Component{
         this.state={
             show:false
         }
-        this.handleScroll = this.handleScroll.bind()
-    }
+        this.backTop = this.backTop.bind()
 
-    componentWillMount(){
-        window.addEventListener('scroll',this.handleScroll,true);
-    }
-    handleScroll(){
-        let scrollTop = document.documentElement.scrollTop;
-        if(scrollTop>100){
-            this.setState({
-                show:true
-            })
-        }else{
-            this.setState({
-                show:false
-            })
-        }
+        this.backTop()
     }
 
     backTop(){
@@ -41,15 +27,16 @@ class GameInfo extends React.Component{
         var data = this.props.location.state;
         var gamePrice=data.price;
         var gameImg=data.img;
-        var gmaeText="這是一款真正好玩的遊戲，很多很多介紹.....";
+        var gameId=data.gameID;
+        var gmaeText=data.description;
         return (
             <div>
                 <div style={{width:"100%",display:"flex",justifyContent:"center"} }>
                     <div className="Mycontainer" id="MainContainer" style={{paddingTop:"20px"}}>
-                        <Article contact={{img:gameImg,title:"遊戲介紹:",text:gmaeText,style:1}}/>
-                        <OrderArea contact={{price:gamePrice}}/>
+                        <Article contact={{img:gameImg,title:"遊戲介紹:",text:gmaeText,style:1,ID:gameId}}/>
+                        <OrderArea contact={{price:gamePrice,ID:gameId}}/>
                         <hr></hr>
-                        <Messageboard/>
+                        <Messageboard contact={{ID:gameId}}/>
                     </div>
                 </div>
             </div>

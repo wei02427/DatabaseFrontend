@@ -64,14 +64,16 @@ class CreateGame extends React.Component{
         }
 
         //接收遊戲庫的動作，可能是新增遊戲/編輯遊戲
-        var gameChange = this.props.match.params;
+        var gameChange = this.props.match.params.action;
+        console.log(`Action :${gameChange}`)
         //接收該遊戲的發布狀態
         var isRelease = this.props.location.state.isRelease;
+        console.log(`Release : ${isRelease}`)
         return(
             <div style={{width:"100%",display:"flex",justifyContent:"center"}}>
                 <div className="Mycontainer">
                     {   //若這頁是新增遊戲頁面，顯示新增遊戲的標題，否則顯示編輯遊戲的標題
-                        gameChange.action==="createNew"
+                        gameChange==="createNew"
                         ?(
                             <div className="TitleDiv" style={CenterStyle}>
                                 <h2 style={{color:"white",paddingTop:"30px",paddingBottom:"30px"}}>新增遊戲：加入新遊戲到遊戲庫</h2>
@@ -100,6 +102,7 @@ class CreateGame extends React.Component{
                                     type="text" 
                                     name="name"
                                     placeholder="紫色恐怖" 
+                                    defaultValue={this.state.name}
                                     onChange={this.handleInputChange.bind(this)}
                                     required
                                     />
@@ -137,6 +140,7 @@ class CreateGame extends React.Component{
                                     type="text" 
                                     name="gameId"
                                     placeholder="123123" 
+                                    defaultValue={this.state.gameId}
                                     onChange={this.handleInputChange.bind(this)}
                                     required
                                     />
@@ -147,6 +151,7 @@ class CreateGame extends React.Component{
                                         type="text" 
                                         name="authorId"
                                         placeholder="456456"
+                                        defaultValue={this.state.authorId}
                                         onChange={this.handleInputChange.bind(this)}
                                         required
                                     />
@@ -160,6 +165,7 @@ class CreateGame extends React.Component{
                                     type="text" 
                                     name="price"
                                     placeholder="1000" 
+                                    defaultValue={this.state.price}
                                     onChange={this.handleInputChange.bind(this)}
                                     required
                                     />
@@ -170,6 +176,7 @@ class CreateGame extends React.Component{
                                     type="text" 
                                     name="photo"
                                     placeholder="https://xxxxxx.jpg" 
+                                    defaultValue={this.state.photo}
                                     onChange={this.handleInputChange.bind(this)}
                                     required
                                     />
@@ -180,13 +187,13 @@ class CreateGame extends React.Component{
                             <Form.Group as={Col} md="8">
                                 <Form.Label className="FormText">遊戲介紹</Form.Label>
                                 <div className="introduce-box" >
-                                    <textarea className="TextAreaInput" ref="txt" maxlength="100" name="description" onChange={this.handleInputChange.bind(this)} placeholder="這遊戲真的好玩啦沒在蓋"/>
+                                    <textarea className="TextAreaInput" ref="txt" maxlength="100" name="description" defaultValue={this.state.description} onChange={this.handleInputChange.bind(this)} placeholder="這遊戲真的好玩啦沒在蓋"/>
                                 </div>
                             </Form.Group>
                         </Form.Row>
 
                         {   //如果這頁是新增遊戲的頁面，顯示新增遊戲頁面的按鈕組，否則顯示編輯遊戲頁面的按鈕組
-                            gameChange.action==="createNew" 
+                            gameChange==="createNew" 
                             ?(
                                 <div className="ButtonDiv" style={CenterStyle}>
                                     <Link to ="/gameBox">

@@ -49,10 +49,11 @@ class LiuApp extends React.Component{
     }
 
 render(){
+    var gameId=this.props.contact.ID;
     return (
         <div className="MessageBoard">
             <div className="MessageTitle">
-                <h2 className="MessageTitleText">評論區</h2>
+            <h2 className="MessageTitleText">評論區</h2>
             </div>
 
             <div className="MessageInputArea">
