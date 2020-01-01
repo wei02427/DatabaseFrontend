@@ -7,12 +7,13 @@ class OrderArea extends React.Component {
         super(props);
         this.handleClick=this.handleClick.bind(this);
         this.state={
-            isable:false
+            isable:true
         }
     }
 
     handleClick(event) {
         console.log(event.target.value)
+        this.setState({isable:false})
         const url = 'http://localhost:9000/addcart'
         fetch(url, {
             method: 'post',
@@ -54,7 +55,7 @@ class OrderArea extends React.Component {
                     this.state.isable?(
                         <Button variant="success" value={this.props.contact.ID} onClick={this.handleClick}>加入購物車</Button>
                     ):(
-                        <Button variant="success" value={this.props.contact.ID} onClick={this.handleClick}>加入購物車</Button>
+                        <Button variant="success" value={this.props.contact.ID}  disabled="disabled" >已放入購物車</Button>
                     )
                 }
                 

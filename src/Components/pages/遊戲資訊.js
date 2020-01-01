@@ -28,6 +28,9 @@ class GameInfo extends React.Component{
         var gamePrice=data.price;
         var gameImg=data.img;
         var gameId=data.gameID;
+        var gameName=data.gameName;
+        var gameAuthor=data.gameAuthor;
+        var gameType=data.gameType;
         var gmaeText=data.description;
         return (
             <div>

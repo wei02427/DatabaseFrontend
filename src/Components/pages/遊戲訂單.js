@@ -58,6 +58,7 @@ class OrderPage extends React.Component{
     }
     var d=new Date()
     var price = this.props.location.state.price
+    var d = new Date()
         return (
             
             <div>

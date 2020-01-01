@@ -59,9 +59,9 @@ class CreateGame extends React.Component {
             }),
             //body 將 json 轉字串送出
             body: JSON.stringify({
-                aid: this.state.authorId,
+                aid: this.state.authorName,
                 name: this.state.name,
-                type: this.state.selectGameType,
+                type: this.state.gameType,
                 price: this.state.price,
                 photo: this.state.photo,
                 description: this.state.description,
@@ -209,7 +209,7 @@ class CreateGame extends React.Component {
                                                         id="select-type"
                                                         type="text"
                                                         onChange={this.changeGameType.bind(this)}
-                                                        value={this.state.selectGameType}
+                                                        value={this.state.gameType}
                                                         name="gameType"
                                                         defaultValue={this.state.gameType}
                                                     >
@@ -234,7 +234,7 @@ class CreateGame extends React.Component {
                                 {
                                     gameChange === "createNew"
                                         ? <Form.Control type="text" name="authorName" placeholder="遊戲橘子" onChange={this.handleInputChange.bind(this)} required />
-                                        : <Form.Control defaultValue={this.state.authorName} type="text" name="authorName" placeholder="遊戲橘子" onChange={this.handleInputChange.bind(this)} required readOnly />
+                                        : <Form.Control defaultValue={this.state.authorName} type="text" name="authorName" onChange={this.handleInputChange.bind(this)} required readOnly />
                                 }
                             </Form.Group>
                             <Form.Group as={Col} md="4" >
