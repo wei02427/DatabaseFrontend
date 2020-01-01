@@ -7,7 +7,7 @@ class OrderArea extends React.Component {
         super(props);
         this.handleClick=this.handleClick.bind(this);
         this.state={
-            isable=false
+            isable:false
         }
     }
 

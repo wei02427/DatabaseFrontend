@@ -56,7 +56,7 @@ class OrderPage extends React.Component{
         color:"white",
         padding:"30px"
     }
-    
+    var d=new Date()
     var price = this.props.location.state.price
         return (
             
@@ -70,7 +70,7 @@ class OrderPage extends React.Component{
                         <div className="orderDetail" style={orderStyle}>
                             <h3 className="orderID" style={{marginBottom:"15px",marginTop:"15px"}}>訂單編號：{this.state.orderID}</h3>
                             <h3 className="orderPrice" style={{marginBottom:"15px",marginTop:"15px"}}>總價錢：{this.state.orderPrice}</h3>
-                            <h3 className="orderTime" style={{marginBottom:"15px",marginTop:"15px"}}>下訂時間：{this.state.orderTime}</h3>
+                            <h3 className="orderTime" style={{marginBottom:"15px",marginTop:"15px"}}>下訂時間：{d.getFullYear()+"-"+d.getMonth()+"-"+d.getDate()+" "+d.getHours()+":"+d.getMinutes()+":"+d.getSeconds()}</h3>
                         </div>
 
                         <div className="ButtonDiv" style={CenterStyle}>
