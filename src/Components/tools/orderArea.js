@@ -1,9 +1,9 @@
 import React from 'react'
 import Button from 'react-bootstrap/Button';
 import { Link } from 'react-router-dom';
-
-class OrderArea extends React.Component{
-    constructor(props){
+import jwt_decode from 'jwt-decode';
+class OrderArea extends React.Component {
+    constructor(props) {
         super(props);
         this.handleClick=this.handleClick.bind(this);
         this.state={
@@ -11,14 +11,42 @@ class OrderArea extends React.Component{
         }
     }
 
-    handleClick(event){
+    handleClick(event) {
         console.log(event.target.value)
         this.setState({isable:false})
+        const url = 'http://localhost:9000/addcart'
+        fetch(url, {
+            method: 'post',
+            mode: 'cors',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': localStorage.getItem('token')
+            },
+            body: JSON.stringify({
+                uid:jwt_decode(localStorage.getItem('token')).uid,
+                gid:parseInt(event.target.value)
+            })
+        })
+            .then(function (data) {
+                return data.json()
+            })
+            .then(function (data) {
+                if (data.err !== null) {
+                    console.log(data.staus)
+                }
+                else {
+                    throw data.err
+                }
+            })
+
+            .catch(function (err) {
+                console.log(err)
+            })
     }
 
-    render(){
+    render() {
         var gameId = this.props.contact.ID
-        return(
+        return (
             <div className="orderArea">
                 <h5 className="orderText">購買遊戲</h5>
                 <div className="priceArea"></div>
