@@ -21,7 +21,7 @@ class GameTable extends React.Component {
         this.handleCartReset = this.handleCartReset.bind(this);
 
         this.handleManageReset = this.handleManageReset.bind(this);
-
+        this.orderRest = this.orderRest.bind(this);
         this.handleInputChange = this.handleInputChange.bind(this);
         this.handleGameBoxReset = this.handleGameBoxReset.bind(this);
         this.handleReleaseDown = this.handleReleaseDown.bind(this);
@@ -33,6 +33,47 @@ class GameTable extends React.Component {
         this.handleGameBoxReset();
 
     }
+
+    orderRest(){
+        const that = this;
+        const url = "http://localhost:9000/getCartlist"
+        this.setState({ CartList: [] })
+        fetch(url, {
+            method: 'post',
+            mode: 'cors',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': localStorage.getItem('token')
+            },
+            body: JSON.stringify({
+                uid: jwt_decode(localStorage.getItem('token')).uid,
+            })
+
+        })
+            .then(function (data) {
+                return data.json()
+            })
+            .then(function (data) {
+                
+                let OrderLists = data.map((element) => 
+                    <tr>
+                        <td width="150px" align='center' className="bodyField">{element.Order_ID}</td>
+                        <td width="150px" align='center' className="bodyField">{element.DataTime}</td>
+                        <td width="150px" align='center' className="bodyField">{element.SumPrice}</td>
+                        <td width="150px" align='center' className="bodyField">
+                            <Button variant="danger"  className="tableButton">查看</Button>
+                        </td>
+                    </tr>
+                )
+                that.setState({
+                    OrderList: [...that.state.OrderList, OrderLists]
+                })
+            })
+            .catch(function (err) {
+                console.log(err)
+            })
+    }
+
     //#region 購物車相關
     handleInputChange(event) {   //改變 CratItem的checked
         console.log(event.target.checked, event.target.value);
@@ -273,7 +314,7 @@ class GameTable extends React.Component {
                                 : ((<td width="150px" align='center' className="bodyField">未上架</td>))
                         }
                         <td width="150px" align='center' className="bodyField">
-                            <Link to={{ pathname: "/changeGameData/editGame", state: { name: element.Gname, authorName: element.AuthorName, gameType: element.type, price: element.price, photo: element.photo, description: element.description, release_state: element.state, gameId: element.gameID } }}>
+                            <Link to={{ pathname: "/changeGameData/editGame", state: { name: element.Gname, authorName: element.Aname, gameType: element.type, price: element.price, photo: element.photo, description: element.description, release_state: element.state, gameId: element.gameID } }}>
                                 <Button variant="secondary" className="tableButton">編輯</Button>
                             </Link>
                         </td>
@@ -347,23 +388,7 @@ class GameTable extends React.Component {
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td width="150px" align='center' className="bodyField">106590017</td>
-                                <td width="150px" align='center' className="bodyField">2019.12.8</td>
-                                <td width="150px" align='center' className="bodyField">550</td>
-                                <td width="150px" align='center' className="bodyField">
-                                    <Button variant="danger" value={element.state} className="tableButton">查看</Button>
-                                </td>
-                            </tr>
-
-                            <tr>
-                                <td width="150px" align='center' className="bodyField">106590028</td>
-                                <td width="150px" align='center' className="bodyField">2020.3.6</td>
-                                <td width="150px" align='center' className="bodyField">700</td>
-                                <td width="150px" align='center' className="bodyField">
-                                    <Button variant="danger"  className="tableButton">查看</Button>
-                                </td>
-                            </tr>
+                            {this.orderRest}
                         </tbody>
                     </table>
                 </div>
