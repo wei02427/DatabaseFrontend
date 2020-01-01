@@ -150,7 +150,7 @@ class CreateGame extends React.Component {
             <div style={{ width: "100%", display: "flex", justifyContent: "center" }}>
                 <div className="Mycontainer">
                     {   //若這頁是新增遊戲頁面，顯示新增遊戲的標題，否則顯示編輯遊戲的標題
-                        gameChange.action === "createNew"
+                        gameChange === "createNew"
                             ? (
                                 <div className="TitleDiv" style={CenterStyle}>
                                     <h2 style={{ color: "white", paddingTop: "30px", paddingBottom: "30px" }}>新增遊戲：加入新遊戲到遊戲庫</h2>
@@ -158,7 +158,7 @@ class CreateGame extends React.Component {
                             ) : (
                                 <div className="TitleDiv" style={CenterStyle}>
                                     {   //若該遊戲還沒上架，顯示未上架，否則顯示上架中
-                                        this.state.release_state === false
+                                        this.state.release_state == 0
                                             ? <h2 style={{ color: "white", paddingTop: "30px", paddingBottom: "30px" }}>編輯遊戲：更改遊戲資料
                                         <Badge variant="danger">未上架</Badge>
                                             </h2>
@@ -176,7 +176,7 @@ class CreateGame extends React.Component {
                             <Form.Group as={Col} md="4" >
                                 <Form.Label className="FormText">遊戲名稱</Form.Label>
                                 {
-                                    gameChange.action === "createNew"
+                                    gameChange === "createNew"
                                         ? <Form.Control type="text" name="name" placeholder="紫色恐怖" onChange={this.handleInputChange.bind(this)} required />
                                         : <Form.Control defaultValue={this.state.name} type="text" name="name" placeholder="紫色恐怖" onChange={this.handleInputChange.bind(this)} required />
                                 }
@@ -187,7 +187,7 @@ class CreateGame extends React.Component {
                                 <div className="select-Box">
                                     <span>
                                         {
-                                            gameChange.action === "createNew"
+                                            gameChange === "createNew"
                                                 ? (
                                                     <select
                                                         id="select-type"
@@ -232,7 +232,7 @@ class CreateGame extends React.Component {
                             <Form.Group as={Col} md="4">
                                 <Form.Label className="FormText">製造商名稱</Form.Label>
                                 {
-                                    gameChange.action === "createNew"
+                                    gameChange === "createNew"
                                         ? <Form.Control type="text" name="authorName" placeholder="遊戲橘子" onChange={this.handleInputChange.bind(this)} required />
                                         : <Form.Control defaultValue={this.state.authorName} type="text" name="authorName" placeholder="遊戲橘子" onChange={this.handleInputChange.bind(this)} required readOnly />
                                 }
@@ -245,7 +245,7 @@ class CreateGame extends React.Component {
                             <Form.Group as={Col} md="4" >
                                 <Form.Label className="FormText">遊戲價格(NT)</Form.Label>
                                 {
-                                    gameChange.action === "createNew"
+                                    gameChange === "createNew"
                                         ? <Form.Control type="text" name="price" placeholder="1000" onChange={this.handleInputChange.bind(this)} required />
                                         : <Form.Control defaultValue={this.state.price} type="text" name="price" placeholder="1000" onChange={this.handleInputChange.bind(this)} required />
                                 }
@@ -253,7 +253,7 @@ class CreateGame extends React.Component {
                             <Form.Group as={Col} md="4" >
                                 <Form.Label className="FormText">遊戲圖片(url)</Form.Label>
                                 {
-                                    gameChange.action === "createNew"
+                                    gameChange=== "createNew"
                                         ? <Form.Control type="text" name="photo" placeholder="https://xxxxxx.jpg" onChange={this.handleInputChange.bind(this)} required />
                                         : <Form.Control defaultValue={this.state.photo} type="text" name="photo" placeholder="https://xxxxxx.jpg" onChange={this.handleInputChange.bind(this)} required />
                                 }
@@ -265,7 +265,7 @@ class CreateGame extends React.Component {
                                 <Form.Label className="FormText">遊戲介紹</Form.Label>
                                 <div className="introduce-box" >
                                     {
-                                        gameChange.action === "createNew"
+                                        gameChange === "createNew"
                                             ? <textarea className="TextAreaInput" ref="txt" maxlength="100" name="description" onChange={this.handleInputChange.bind(this)} placeholder="這遊戲真的好玩啦沒在蓋" />
                                             : <textarea className="TextAreaInput" defaultValue={this.state.description} ref="txt" maxlength="100" name="description" onChange={this.handleInputChange.bind(this)} placeholder="這遊戲真的好玩啦沒在蓋" />
                                     }
@@ -275,7 +275,7 @@ class CreateGame extends React.Component {
                         </Form.Row>
 
                         {   //如果這頁是新增遊戲的頁面，顯示新增遊戲頁面的按鈕組，否則顯示編輯遊戲頁面的按鈕組
-                            gameChange.action === "createNew"
+                            gameChange === "createNew"
                                 ? (
                                     <div className="ButtonDiv" style={CenterStyle}>
                                         <Link to="/gameBox">
@@ -294,7 +294,7 @@ class CreateGame extends React.Component {
                                         <Button variant="info" type="button" onClick={this.handleChange} style={buttonStyle}>更新</Button>
 
                                         {   //如果還沒上架，第三顆按鈕顯示上架，否則顯示下架
-                                            this.state.release_state === false
+                                            this.state.release_state == 0
                                                 ? <Button variant="success" onClick={this.ChangeReleaseState} style={buttonStyle}>上架</Button>
                                                 : <Button variant="danger" onClick={this.ChangeReleaseState} style={buttonStyle}>下架</Button>
                                         }

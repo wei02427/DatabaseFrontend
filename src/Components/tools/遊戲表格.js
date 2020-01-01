@@ -79,7 +79,9 @@ class GameTable extends React.Component {
                         <tr>
                             {
                                 allmoney+=element.price,
-                                console.log(allmoney)
+                                console.log(`fdsafdsaf :${allmoney}`),
+                                that.setState({money:allmoney}),
+                                console.log(`<3<3<3:${that.state.money}`)
                             }
                             <td width="150px" align='center' className="bodyField">{element.name}</td>
                             <td width="150px" align='center' className="bodyField">{element.type}</td>
@@ -96,6 +98,7 @@ class GameTable extends React.Component {
             .catch(function (err) {
                 console.log(err)
             })
+            
     }
 
     
@@ -114,7 +117,6 @@ class GameTable extends React.Component {
         this.setState({ CartList: this.state.CartList });
     }
     loadcurrent() {
-        this.setState({ManageList:[]})
         const that = this;
         const url="https://ntutsting.herokuapp.com/testAPI"
         this.setState({ManageList:[]})

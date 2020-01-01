@@ -9,34 +9,8 @@ import jwt_decode from 'jwt-decode';
 class Header extends React.Component{
     constructor(props){
         super(props);
-        this.state={logState:"noUser"};
-        this.LogOut=this.LogOut.bind(this)
-        this.UserLogIn=this.UserLogIn.bind(this)
-        this.ManagerLogIn=this.ManagerLogIn.bind(this)
     }
 
-    //登出
-    LogOut(){
-        localStorage.clear()
-        this.setState({
-            logState:"noUser"});
-    }
-
-    //登入一般使用者
-    UserLogIn(){
-        // localStorage.getItem('token')
-        // var decoded = jwt_decode(localStorage.getItem('token').replace("Bearer ",""))
-        // console.log(decoded.admin);
-
-        this.setState({
-            logState:"userLogIn"});
-    }
-
-    //登入管理員
-    ManagerLogIn(){
-        this.setState({
-            logState:"ManagerLogIn"});
-    }
 
     render(){
         var TopLogoStyle={
@@ -52,25 +26,18 @@ class Header extends React.Component{
             backgroundColor:"transparent"
         }
 
-        if(this.state.logState === "noUser"){
+        var logState=this.props.contact.logState;
+        if(logState === "noUser"){
             return (
                 <div className="header">
                         <Link className="LogoBox" to="/">
                             <img className="TopLogo" src={Logo}></img>
                         </Link>
-
-                        <Link to ="/" onClick={this.UserLogIn}>
-                            <Button variant="danger" >使用者(測試)</Button>
-                        </Link>
-
-                        <Link to ="/">
-                            <Button variant="success" onClick={this.ManagerLogIn}>管理員(測試)</Button>
-                        </Link>
                         
                         <Link className="naviText" id="TopText" to="/signIn">會員登入</Link>
                 </div>
             );
-        }else if(this.state.logState === "userLogIn"){
+        }else if(logState === "userLogIn"){
             return (
                 <div className="header">
                         <Link className="LogoBox" to="/">
@@ -94,7 +61,7 @@ class Header extends React.Component{
                                 </Dropdown.Item>
 
                                 <Dropdown.Item>
-                                    <Link style={dropdownTextStyle} onClick={this.LogOut} to="/">登出</Link>
+                                    <Link style={dropdownTextStyle} onClick={this.props.LogOut} to="/">登出</Link>
                                 </Dropdown.Item>
                             </Dropdown.Menu>
                         </Dropdown>
@@ -102,7 +69,7 @@ class Header extends React.Component{
                         <p className="UserText">XXX玩家，你好！</p>
                 </div>
             );
-        }else if(this.state.logState === "ManagerLogIn"){
+        }else if(logState === "ManagerLogIn"){
             return (
                 <div className="header">
                         <Link className="LogoBox" to="/">
@@ -118,7 +85,7 @@ class Header extends React.Component{
                                 </Dropdown.Item>
 
                                 <Dropdown.Item>
-                                    <Link style={dropdownTextStyle} onClick={this.LogOut} to="/">登出</Link>
+                                    <Link style={dropdownTextStyle} onClick={this.props.LogOut} to="/">登出</Link>
                                 </Dropdown.Item>
                             </Dropdown.Menu>
                         </Dropdown>

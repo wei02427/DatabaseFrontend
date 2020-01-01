@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import { Divider } from "semantic-ui-react"
 import "../../css/container排版.css"
 import "../../css/Account登入排版.css"
+import jwt_decode from 'jwt-decode';
 
 
 class SignIn extends React.Component {
@@ -39,8 +40,15 @@ class SignIn extends React.Component {
         }).then((data) => {
             console.log(data)
             if (data.err !== null) {
-                localStorage.setItem('token', data.token)
-                console.log(localStorage.getItem('token'))
+                // console.log(jwt_decode(localStorage.getItem('token')).admin);
+                localStorage.setItem('token', data.token);
+                const decoded = jwt_decode(localStorage.getItem('token'));
+                var logState = decoded.admin;
+                if (logState === true)
+                    this.props.changeLogState(true);
+                else
+                    this.props.changeLogState(false);
+
                 this.props.history.push("/");
             }
             else {
@@ -49,7 +57,7 @@ class SignIn extends React.Component {
             }
         }).catch((err) => {
             console.log('錯誤:', err);
-            
+
         })
         console.log(`輸入的帳號是: ${this.state.Account}`);
         console.log(`輸入的密碼是: ${this.state.password}`);
@@ -59,15 +67,15 @@ class SignIn extends React.Component {
         return (
             <div style={{ width: "100%", display: "flex", justifyContent: "center" }}>
                 <div className="Mycontainer">
-                    <Form style={{display:"flex",flexDirection:"column",alignItems:"center"}} onSubmit={this.handInsubmit}>
-                        
-                        <Form.Group controlId="formBasicAccount"style={{width:"25%",alignItems:"center"}}>
-                        <Form.Label className="FormText">電子郵件:</Form.Label>
-                            <Form.Control 
-                                type="Account" 
+                    <Form style={{ display: "flex", flexDirection: "column", alignItems: "center" }} onSubmit={this.handInsubmit}>
+
+                        <Form.Group controlId="formBasicAccount" style={{ width: "25%", alignItems: "center" }}>
+                            <Form.Label className="FormText">電子郵件:</Form.Label>
+                            <Form.Control
+                                type="Account"
                                 name="Account"
                                 minLength="8"
-                                placeholder="E-mail" 
+                                placeholder="E-mail"
                                 onChange={this.handleInputChange.bind(this)}
                                 required
                             />
