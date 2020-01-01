@@ -12,32 +12,27 @@ class GameTable extends React.Component{
         super(props);
         this.state={
             CartList:[],
-            money:"",
+            ManageList:[],
+            GameBoxList:[],
+            money:0,
         };
         this.handleCartReset=this.handleCartReset.bind(this);
         this.handleInputChange= this.handleInputChange.bind(this);
         this.deleteChecked = this.deleteChecked.bind(this);
+        this.handleManageReset = this.handleManageReset.bind(this);
+        this.handleReleaseDown = this.handleReleaseDown.bind(this);
+        this.handleGameBoxReset = this.handleGameBoxReset.bind(this);
+        this.handleManageReset();
         this.handleCartReset();
+        this.handleGameBoxReset();
     }
-
-    handleBuy(){
-        var price=0;
-        for(var i=0;i<this.state.CartList.length;i++){
-              if(this.state.CartList[i].checked==true){
-                price +=this.state.CartList[i].Price;
-              }
-          }
-          console.log(price);
-          
-
-          this.setState({money:toString(price)});
-    }
-
+    //#region 購物車相關
     handleCartReset(){          //購物車資料
         this.state.CartList=[];
-
+        var NewCartGameId;
+        
         var Cartitem={
-            Game_id:0,
+            Game_id:NewCartGameId,
             Name:"魔物獵人",
             Type:"動作遊戲",
             Price:1800,
@@ -46,7 +41,7 @@ class GameTable extends React.Component{
         this.state.CartList.push(Cartitem);
 
         Cartitem={
-            Game_id:1,
+            Game_id:NewCartGameId,
             Name:"刺客教條:兄弟會",
             Type:"動作遊戲",
             Price:900,
@@ -57,7 +52,7 @@ class GameTable extends React.Component{
         this.setState({CartList:this.state.CartList});
     }
     
-    handleInputChange(event) {
+    handleInputChange(event) {   //改變 CratItem的checked
         console.log("Game_id:"+event.target.id+" checked: "+event.target.checked);
         for(const each of this.state.CartList){
             if(each.Name == event.target.name){
@@ -67,7 +62,7 @@ class GameTable extends React.Component{
         this.setState({CartList:this.state.CartList});
       }
 
-      deleteChecked(event){
+      deleteChecked(event){     //刪除CartItem
           
           for(var i=0;i<this.state.CartList.length;i++){
             console.log(`Delete ${this.state.CartList[i].checked}`);
@@ -80,10 +75,71 @@ class GameTable extends React.Component{
 
           this.setState({CartList:this.state.CartList});
       }
+    //#endregion
+    //#region 上架遊戲表相關
+    handleManageReset(){          //上架遊戲中資料
+        this.state.ManageList=[];
+        var Manageitem={
+            Game_id:"8941",
+            Name:"刺客教條",
+            Type:"冒險類型",
+            Price:777,
+            AuthorName:"刺客大聯盟",
+            isRelease:true
+        }
+        this.state.ManageList.push(Manageitem);
+
+        Manageitem={
+            Game_id:"2248",
+            Name:"跑跑卡丁車",
+            Type:"競速類型",
+            Price:888,  
+            AuthorName:"遊戲橘子",
+            isRelease:true
+        }
+        this.state.ManageList.push(Manageitem);
+
+        this.setState({ManageList:this.state.ManageList});
+    }
+
+    handleReleaseDown(event){
+        for(var i=0;i<this.state.ManageList.length;i++){
+            if(this.state.ManageList[i].Game_id == event.target.value){
+                this.state.ManageList[i].isRelease=false;
+                this.state.ManageList.splice(i,1);
+                i--;
+            }
+            
+        }this.setState({ManageList:this.state.ManageList});
+    }
+        
+    //#endregion
+    //#region 所有可控的遊戲列表
+        handleGameBoxReset(){
+            this.state.GameBoxList=[];
+            var GameBoxitem={
+                Game_id:"7788",
+                Name:"跑跑薑餅人",
+                Type:"競速類型",
+                Price:777,
+                isRelease:false
+            }
+            this.state.GameBoxList.push(GameBoxitem);
+
+            var GameBoxitem={
+                Game_id:"8941",
+                Name:"跑跑卡丁車",
+                Type:"競速類型",
+                Price:888,
+                isRelease:true
+            }
+            this.state.GameBoxList.push(GameBoxitem);
+
+            this.setState({GameBoxList:this.state.GameBoxList});
+        }
+    //#endregion
 
     render(){
-        var d = new Date();
-        
         if(this.props.contact.tableType==="manage"){
             return (
                 <div className="gameTable">
@@ -98,25 +154,19 @@ class GameTable extends React.Component{
                             </tr>
                         </thead>
                         <tbody>
-                             <tr>
-                                <td width="150px" align='center' className="bodyField">刺客教條</td>
-                                <td width="150px" align='center' className="bodyField">冒險類型</td>
-                                <td width="150px" align='center' className="bodyField">777</td>
-                                <td width="150px" align='center' className="bodyField">刺客大聯盟</td>
-                                <td width="150px" align='center' className="bodyField">
-                                    <Button variant="danger" className="tableButton">下架</Button>
-                                </td>
-                            </tr>
-    
-                            <tr>
-                                <td width="150px" align='center' className="bodyField">跑跑卡丁車</td>
-                                <td width="150px" align='center' className="bodyField">競速類型</td>
-                                <td width="150px" align='center' className="bodyField">888</td>
-                                <td width="150px" align='center' className="bodyField">遊戲橘子</td>
-                                <td width="150px" align='center' className="bodyField">
-                                    <Button variant="danger" className="tableButton">下架</Button>
-                                </td>
-                            </tr>
+                            {
+                            this.state.ManageList.map((Manageitem)=>
+                                    <tr>
+                                        <td width="150px" align='center' className="bodyField">{Manageitem.Name}</td>
+                                        <td width="150px" align='center' className="bodyField">{Manageitem.Type}</td>
+                                        <td width="150px" align='center' className="bodyField">{Manageitem.Price}</td>
+                                        <td width="150px" align='center' className="bodyField">{Manageitem.AuthorName}</td>
+                                        <td width="150px" align='center' className="bodyField">
+                                            <Button variant="danger" value={Manageitem.Game_id} onClick={this.handleReleaseDown} className="tableButton">下架</Button>
+                                        </td>
+                                    </tr>
+                                )
+                            }   
                         </tbody>
                     </table>
                 </div>
@@ -135,29 +185,26 @@ class GameTable extends React.Component{
                             </tr>
                         </thead>
                         <tbody>
-                             <tr>
-                                <td width="150px" align='center' className="bodyField">跑跑薑餅人</td>
-                                <td width="150px" align='center' className="bodyField">競速類型</td>
-                                <td width="150px" align='center' className="bodyField">777</td>
-                                <td width="150px" align='center' className="bodyField">未上架</td>
-                                <td width="150px" align='center' className="bodyField">
-                                    <Link to={{pathname:"/changeGameData/editGame",state:{isRelease:false}}}>
-                                        <Button variant="secondary" className="tableButton">編輯</Button>
-                                    </Link>
-                                </td>
-                            </tr>
-    
-                            <tr>
-                                <td width="150px" align='center' className="bodyField">跑跑卡丁車</td>
-                                <td width="150px" align='center' className="bodyField">競速類型</td>
-                                <td width="150px" align='center' className="bodyField">888</td>
-                                <td width="150px" align='center' className="bodyField">上架中</td>
-                                <td width="150px" align='center' className="bodyField">
-                                    <Link to={{pathname:"/changeGameData/editGame",state:{isRelease:true}}}>
-                                        <Button variant="secondary" className="tableButton">編輯</Button>
-                                    </Link>
-                                </td>
-                            </tr>
+                            {
+                                this.state.GameBoxList.map((GameBoxitem)=>
+                                        <tr>
+                                            <td width="150px" align='center' className="bodyField">{GameBoxitem.Name}</td>
+                                            <td width="150px" align='center' className="bodyField">{GameBoxitem.Type}</td>
+                                            <td width="150px" align='center' className="bodyField">{GameBoxitem.Price}</td>
+                                            {
+                                                GameBoxitem.isRelease===true
+                                                ? <td width="150px" align='center' className="bodyField">上架中</td>
+                                                : <td width="150px" align='center' className="bodyField">未上架</td>
+                                            }
+                                            
+                                            <td width="150px" align='center' className="bodyField">
+                                            <Link to={{pathname:"/changeGameData/editGame",state:{isRelease:GameBoxitem.isRelease}}}>
+                                                <Button variant="secondary" className="tableButton">編輯</Button>
+                                            </Link>
+                                            </td>
+                                        </tr>
+                                    )
+                            }   
                         </tbody>
                     </table>
                 </div>
@@ -190,6 +237,7 @@ class GameTable extends React.Component{
                 </div>
             );
         }else if(this.props.contact.tableType==="Cart"){
+            
             return (
             <div width ="300px" align='center' className="bodyField">
                 <div className="gameTable">
@@ -221,13 +269,11 @@ class GameTable extends React.Component{
                                 )
                             }
                         </tbody>
-                        <Button   onClick={this.deleteChecked} type="Button">刪除</Button>
                     </table>
-                </div>
-                
+                </div>          
                 <Button style={{backgroundColor:"red"}}  onClick={this.deleteChecked} className="Carttable" type="Button">刪除</Button>
-                <Link  to ={{pathname:"/orderPage",state:{id:"1561561",price:this.state.money,time:"拿後端"}}} >
-                    <Button style={{backgroundColor:"green"}} onClick={this.handleBuy.bind(this)} className="Carttable" type="Submit">確認購買</Button>
+                <Link  to ={{pathname:"/orderPage",state:{id:"1561561",price:this.state.money,time:"拿後端",cartList:this.state.CartList}}} >
+                    <Button style={{backgroundColor:"green"}} className="Carttable" type="Submit">確認購買</Button>
                 </Link>
             </div>
                 

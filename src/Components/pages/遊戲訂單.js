@@ -8,9 +8,11 @@ class OrderPage extends React.Component{
         this.state={
             orderID:this.props.location.state.id,
             orderPrice:this.props.location.state.price,
-            orderTime:this.props.location.state.time
+            orderTime:this.props.location.state.time,
+            orderList :this.props.location.state.cartList
         }
         this.handleInClick=this.handleInClick.bind(this)
+        this.handleCheck=this.handleCheck.bind(this)
     }
 
     handleInClick(e){
@@ -18,6 +20,14 @@ class OrderPage extends React.Component{
         console.log(`訂單總價：${this.state.orderPrice}`);
         console.log(`訂單建立時間：${this.state.orderTime}`);
         this.props.history.push("/");
+    }
+
+    handleCheck(){
+        for(var i=0;i<this.state.orderList.length;i++){
+            if(this.state.orderList[i].checked===true){
+                console.log(this.state.orderList[i].Name)
+            }
+        }
     }
     
     render(){
@@ -46,7 +56,8 @@ class OrderPage extends React.Component{
         color:"white",
         padding:"30px"
     }
-
+    
+    var price = this.props.location.state.price
         return (
             
             <div>

@@ -8,6 +8,7 @@ import GameTtile from '../tools/gameTitle';
 import ImgText from "../tools/imgText";
 import titleImg from '../../img/gameTitle.jpg';
 import { relative } from "path";
+import { type } from "os";
 
 class Article1 extends React.Component{
     constructor(props){
@@ -27,7 +28,7 @@ class Article1 extends React.Component{
                 return data.json()
             })
             .then(function (data) {
-                let lists = data.map((element) => <Link className="gameCard" to={{ pathname: "/gmaeInfo", state: { price: element.price, img: element.photo,description: element.description} }}>
+                let lists = data.map((element) => <Link className="gameCard" to={{ pathname: "/gmaeInfo", state: { price: element.price, img: element.photo,description: element.description,gameID: element.gameID} }}>
                     <ImgText contact={{ img: element.photo, text: element.price, style: "1" }} />
                 </Link>)
                 that.setState({
