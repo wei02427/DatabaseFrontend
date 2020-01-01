@@ -4,12 +4,12 @@ import {Button} from "react-bootstrap"
 import {Link}  from "react-router-dom";
 import "../../css/headerStyle.css"
 import Logo from "../../img/logo.png";
-
+import jwt_decode from 'jwt-decode';
 
 class Header extends React.Component{
     constructor(props){
         super(props);
-        this.state={logState:this.props.contact.logState};
+        this.state={logState:"noUser"};
         this.LogOut=this.LogOut.bind(this)
         this.UserLogIn=this.UserLogIn.bind(this)
         this.ManagerLogIn=this.ManagerLogIn.bind(this)
@@ -24,6 +24,10 @@ class Header extends React.Component{
 
     //登入一般使用者
     UserLogIn(){
+        // localStorage.getItem('token')
+        // var decoded = jwt_decode(localStorage.getItem('token').replace("Bearer ",""))
+        // console.log(decoded.admin);
+
         this.setState({
             logState:"userLogIn"});
     }
