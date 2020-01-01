@@ -26,14 +26,16 @@ class Article1 extends React.Component {
     loadData(type) {
         const that = this;
         const url='https://ntutsting.herokuapp.com/testAPI'
+        this.setState({list:[]})
         fetch(url, {
             method: 'post',
-            mode: 'cors',
+            
             headers: {
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify({
-                type: type
+                type: type,
+                state:1
             })
         })
             .then(function (data) {
