@@ -43,7 +43,7 @@ class SignUp extends React.Component {
     }
 
     handInsubmit(e) {
-        let url = 'http://localhost:9000/register';
+        let url = 'https://ntutsting.herokuapp.com/register';
         fetch(url, {
             method: 'POST',
             // headers 加入 json 格式
