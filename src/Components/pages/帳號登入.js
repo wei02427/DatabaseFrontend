@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import { Divider } from "semantic-ui-react"
 import "../../css/container排版.css"
 import "../../css/Account登入排版.css"
-
+import jwt_decode from 'jwt-decode';
 
 class SignIn extends React.Component {
     constructor(props) {
@@ -41,6 +41,7 @@ class SignIn extends React.Component {
             if (data.err !== null) {
                 localStorage.setItem('token', data.token)
                 console.log(localStorage.getItem('token'))
+                console.log(jwt_decode(localStorage.getItem('token')))
                 this.props.history.push("/");
             }
             else {

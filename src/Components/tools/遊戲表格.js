@@ -7,7 +7,7 @@ import Form from "react-bootstrap/FormControl";
 import "../../css/container排版.css"
 import { Checkbox } from "semantic-ui-react";
 import { DH_UNABLE_TO_CHECK_GENERATOR } from "constants";
-
+import jwt_decode from 'jwt-decode';
 class GameTable extends React.Component {
     constructor(props) {
         super(props);
@@ -19,13 +19,15 @@ class GameTable extends React.Component {
             money: 0,
         };
         this.handleCartReset = this.handleCartReset.bind(this);
-        this.deleteChecked = this.deleteChecked.bind(this);
+        // this.deleteChecked = this.deleteChecked.bind(this);
         this.handleManageReset = this.handleManageReset.bind(this);
-        this.handleReleaseDown = this.handleReleaseDown.bind(this);
+        // this.handleReleaseDown = this.handleReleaseDown.bind(this);
         this.handleInputChange = this.handleInputChange.bind(this);
         this.handleGameBoxReset = this.handleGameBoxReset.bind(this);
         this.handleReleaseDown = this.handleReleaseDown.bind(this);
         this.loadcurrent = this.loadcurrent.bind(this);
+        this.Cartdown = this.Cartdown.bind(this);
+        this.getcartlist=this.getcartlist.bind(this);
         this.handleManageReset();
         this.handleCartReset();
         this.handleGameBoxReset();
@@ -33,40 +35,77 @@ class GameTable extends React.Component {
     }
     //#region 購物車相關
     handleInputChange(event) {   //改變 CratItem的checked
-        console.log( event.target.checked , event.target.value);
-        if(event.target.checked==true){
+        console.log(event.target.checked, event.target.value);
+        if (event.target.checked == true) {
             this.state.willBuyList.push(event.target.value)
             console.log(this.state.willBuyList)
         }
-        else if(event.target.checked==false){
-            for(var i=0;i<this.state.willBuyList.length;i++){
-                if(this.state.willBuyList[i]==event.target.value){
-                     this.state.willBuyList.splice(i,1);
-                     i--;
+        else if (event.target.checked == false) {
+            for (var i = 0; i < this.state.willBuyList.length; i++) {
+                if (this.state.willBuyList[i] == event.target.value) {
+                    this.state.willBuyList.splice(i, 1);
+                    i--;
                 }
-                
+
             }
             console.log(this.state.willBuyList)
         }
-        this.setState({willBuyList:this.state.willBuyList})
-        
+        this.setState({ willBuyList: this.state.willBuyList })
+
     }
 
-    handleCartReset() {          //購物車資料
-
-        const that = this;
-        var allmoney=0;
-        const url="https://ntutsting.herokuapp.com/testAPI"
-        this.setState({CartList:[]})
+    Cartdown(e) {
+        console.log(e.target.value)
+        const url = 'http://localhost:9000/removeCart'
+        var that=this
         fetch(url, {
             method: 'post',
             mode: 'cors',
             headers: {
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
+                'Authorization': localStorage.getItem('token')
             },
             body: JSON.stringify({
-                type: 'type',
-                state: 'release_state'
+                uid: jwt_decode(localStorage.getItem('token')).uid,
+                gid: parseInt(event.target.value)
+            })
+        })
+            .then(function (data) {
+                return data.json()
+            })
+            .then(function (data) {
+                if (data.err !== null) {
+                    console.log(data.staus)
+                    that.getcartlist()
+                }
+                else {
+                    throw data.err
+                }
+            })
+
+            .catch(function (err) {
+                console.log(err)
+            })
+    }
+
+    handleCartReset() {          //購物車資料
+        this.getcartlist()
+    }
+    getcartlist() {
+
+        const that = this;
+        var allmoney = 0;
+        const url = "http://localhost:9000/getCartlist"
+        this.setState({ CartList: [] })
+        fetch(url, {
+            method: 'post',
+            mode: 'cors',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': localStorage.getItem('token')
+            },
+            body: JSON.stringify({
+                uid: jwt_decode(localStorage.getItem('token')).uid,
             })
 
         })
@@ -74,20 +113,20 @@ class GameTable extends React.Component {
                 return data.json()
             })
             .then(function (data) {
-                
-                let CartLists = data.map((element) => 
-                        <tr>
-                            {
-                                allmoney+=element.price,
-                                console.log(allmoney)
-                            }
-                            <td width="150px" align='center' className="bodyField">{element.name}</td>
-                            <td width="150px" align='center' className="bodyField">{element.type}</td>
-                            <td width="150px" align='center' className="bodyField">{element.price}</td>
-                            <td width="150px" align='center' className="bodyField">
-                                <Button variant="danger" value={element.state} className="tableButton">刪除</Button>
-                            </td>
-                        </tr>,
+
+                let CartLists = data.map((element) =>
+                    <tr>
+                        {
+                            allmoney += element.price,
+                            console.log(allmoney)
+                        }
+                        <td width="150px" align='center' className="bodyField">{element.name}</td>
+                        <td width="150px" align='center' className="bodyField">{element.type}</td>
+                        <td width="150px" align='center' className="bodyField">{element.price}</td>
+                        <td width="150px" align='center' className="bodyField">
+                            <Button variant="danger" value={element.gameID} onClick={that.Cartdown} className="tableButton">刪除</Button>
+                        </td>
+                    </tr>,
                 )
                 that.setState({
                     CartList: [...that.state.CartList, CartLists]
@@ -98,26 +137,25 @@ class GameTable extends React.Component {
             })
     }
 
-    
 
-    deleteChecked(event) {     //刪除CartItem
+    // deleteChecked(event) {     //刪除CartItem
 
-        for (var i = 0; i < this.state.CartList.length; i++) {
-            console.log(`Delete ${this.state.CartList[i].checked}`);
-            if (this.state.CartList[i].checked === true) {
+    //     for (var i = 0; i < this.state.CartList.length; i++) {
+    //         console.log(`Delete ${this.state.CartList[i].checked}`);
+    //         if (this.state.CartList[i].checked === true) {
 
-                this.state.CartList.splice(i, 1);
-                i--;
-            }
-        }
+    //             this.state.CartList.splice(i, 1);
+    //             i--;
+    //         }
+    //     }
 
-        this.setState({ CartList: this.state.CartList });
-    }
+    //     this.setState({ CartList: this.state.CartList });
+    // }
     loadcurrent() {
-        this.setState({ManageList:[]})
+        this.setState({ ManageList: [] })
         const that = this;
-        const url="https://ntutsting.herokuapp.com/testAPI"
-        this.setState({ManageList:[]})
+        const url = "https://ntutsting.herokuapp.com/testAPI"
+        this.setState({ ManageList: [] })
         fetch(url, {
             method: 'post',
             mode: 'cors',
@@ -165,7 +203,7 @@ class GameTable extends React.Component {
     }
 
     handleReleaseDown(event) {   //刪除
-        var that=this
+        var that = this
         console.log(localStorage.getItem('token'))
         console.log(this)
         let url = 'http://localhost:9000/modify';
@@ -204,8 +242,8 @@ class GameTable extends React.Component {
     //#region 所有可控的遊戲列表
     handleGameBoxReset() {
         const that = this;
-        const url="https://ntutsting.herokuapp.com/testAPI"
-        this.setState({GameBoxList:[]})
+        const url = "https://ntutsting.herokuapp.com/testAPI"
+        this.setState({ GameBoxList: [] })
         fetch(url, {
             method: 'post',
             mode: 'cors',
@@ -311,7 +349,7 @@ class GameTable extends React.Component {
                                 <td width="150px" align='center' className="bodyField">2019.12.8</td>
                                 <td width="150px" align='center' className="bodyField">550</td>
                                 <td width="150px" align='center' className="bodyField">
-                                    <Button variant="danger" value={element.state}  className="tableButton">查看</Button>
+                                    <Button variant="danger" value={element.state} className="tableButton">查看</Button>
                                 </td>
                             </tr>
 
