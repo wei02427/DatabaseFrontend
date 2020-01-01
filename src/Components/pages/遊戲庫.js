@@ -46,7 +46,7 @@ class GameBox extends React.Component{
                                 <Button variant="info" style={buttonStyle}>返回</Button>
                             </Link>
 
-                            <Link to ={{pathname:"/changeGameData/createNew",state:{isRelease:false}}}>
+                            <Link to ={{pathname:"/changeGameData/createNew",state:{release_state:false}}}>
                                 <Button variant="success" style={buttonStyle}>新增</Button>
                             </Link>
                         </div>
