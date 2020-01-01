@@ -22,7 +22,7 @@ class SignIn extends React.Component {
         this.setState({ [name]: value });
     }
     handInsubmit(e) {
-        let url = 'http://localhost:9000/login';
+        let url = 'https://ntutsting.herokuapp.com/login';
         fetch(url, {
             method: 'POST',
             // headers 加入 json 格式

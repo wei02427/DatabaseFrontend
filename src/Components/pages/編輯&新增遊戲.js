@@ -45,7 +45,7 @@ class CreateGame extends React.Component {
 
     handleInSubmit(e) {
         console.log(localStorage.getItem('token'))
-        let url = 'http://localhost:9000/insert';
+        let url = 'https://ntutsting.herokuapp.com/insert';
         fetch(url, {
             method: 'POST',
             mode: 'cors',
