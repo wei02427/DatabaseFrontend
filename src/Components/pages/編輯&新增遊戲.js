@@ -94,7 +94,7 @@ class CreateGame extends React.Component {
 
     handleChange(event) {
         console.log(localStorage.getItem('token'))
-        let url = 'http://localhost:9000/modify';
+        let url = 'https://ntutsting.herokuapp.com/testAPI';
         fetch(url, {
             method: 'POST',
             mode: 'cors',

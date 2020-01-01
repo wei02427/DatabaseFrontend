@@ -19,9 +19,7 @@ class GameTable extends React.Component {
             money: 0,
         };
         this.handleCartReset = this.handleCartReset.bind(this);
-        this.deleteChecked = this.deleteChecked.bind(this);
         this.handleManageReset = this.handleManageReset.bind(this);
-        this.handleReleaseDown = this.handleReleaseDown.bind(this);
         this.handleInputChange = this.handleInputChange.bind(this);
         this.handleGameBoxReset = this.handleGameBoxReset.bind(this);
         this.handleReleaseDown = this.handleReleaseDown.bind(this);
@@ -83,7 +81,7 @@ class GameTable extends React.Component {
                                 that.setState({money:allmoney}),
                                 console.log(`<3<3<3:${that.state.money}`)
                             }
-                            <td width="150px" align='center' className="bodyField">{element.name}</td>
+                            <td width="150px" align='center' className="bodyField">{element.Gname}</td>
                             <td width="150px" align='center' className="bodyField">{element.type}</td>
                             <td width="150px" align='center' className="bodyField">{element.price}</td>
                             <td width="150px" align='center' className="bodyField">
@@ -101,21 +99,6 @@ class GameTable extends React.Component {
             
     }
 
-    
-
-    deleteChecked(event) {     //刪除CartItem
-
-        for (var i = 0; i < this.state.CartList.length; i++) {
-            console.log(`Delete ${this.state.CartList[i].checked}`);
-            if (this.state.CartList[i].checked === true) {
-
-                this.state.CartList.splice(i, 1);
-                i--;
-            }
-        }
-
-        this.setState({ CartList: this.state.CartList });
-    }
     loadcurrent() {
         const that = this;
         const url="https://ntutsting.herokuapp.com/testAPI"
@@ -234,7 +217,7 @@ class GameTable extends React.Component {
                                 : ((<td width="150px" align='center' className="bodyField">未上架</td>))
                         }
                         <td width="150px" align='center' className="bodyField">
-                            <Link to={{ pathname: "/changeGameData/editGame", state: { name: element.name, authorName: element.AuthorName, gameType: element.type, price: element.price, photo: element.photo, description: element.description, release_state: element.state, gameId: element.gameID } }}>
+                            <Link to={{ pathname: "/changeGameData/editGame", state: { name: element.Gname, authorName: element.AuthorName, gameType: element.type, price: element.price, photo: element.photo, description: element.description, release_state: element.state, gameId: element.gameID } }}>
                                 <Button variant="secondary" className="tableButton">編輯</Button>
                             </Link>
                         </td>
@@ -313,7 +296,7 @@ class GameTable extends React.Component {
                                 <td width="150px" align='center' className="bodyField">2019.12.8</td>
                                 <td width="150px" align='center' className="bodyField">550</td>
                                 <td width="150px" align='center' className="bodyField">
-                                    <Button variant="danger" value={element.state}  className="tableButton">查看</Button>
+                                    <Button variant="danger"  className="tableButton">查看</Button>
                                 </td>
                             </tr>
 
@@ -322,7 +305,7 @@ class GameTable extends React.Component {
                                 <td width="150px" align='center' className="bodyField">2020.3.6</td>
                                 <td width="150px" align='center' className="bodyField">700</td>
                                 <td width="150px" align='center' className="bodyField">
-                                    <Button variant="danger" value={element.state} className="tableButton">查看</Button>
+                                    <Button variant="danger"  className="tableButton">查看</Button>
                                 </td>
                             </tr>
                         </tbody>

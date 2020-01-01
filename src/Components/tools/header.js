@@ -38,6 +38,8 @@ class Header extends React.Component{
                 </div>
             );
         }else if(logState === "userLogIn"){
+            const decoded = jwt_decode(localStorage.getItem('token'));
+            var userName = decoded.uid;
             return (
                 <div className="header">
                         <Link className="LogoBox" to="/">
@@ -66,7 +68,7 @@ class Header extends React.Component{
                             </Dropdown.Menu>
                         </Dropdown>
 
-                        <p className="UserText">XXX玩家，你好！</p>
+                        <p className="UserText">{userName}玩家，你好！</p>
                 </div>
             );
         }else if(logState === "ManagerLogIn"){
@@ -90,7 +92,7 @@ class Header extends React.Component{
                             </Dropdown.Menu>
                         </Dropdown>
 
-                        <p className="UserText">XXX管理員，你好！</p>
+            <p className="UserText">管理員，你好！</p>
                 </div>
             );
         }
