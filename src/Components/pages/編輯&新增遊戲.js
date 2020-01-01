@@ -37,26 +37,33 @@ class CreateGame extends React.Component {
     }
 
     handleInSubmit(e) {
+        console.log(localStorage.getItem('token'))
         let url = 'http://localhost:9000/insert';
         fetch(url, {
             method: 'POST',
+            mode: 'cors',
             // headers 加入 json 格式
-            headers: {
+            headers: new Headers({
                 'Content-Type': 'application/json',
-                Authorization: 'Bearer ' + localStorage.getItem('token')
-            },
-            // body 將 json 轉字串送出
-            // body: JSON.stringify({
-            //     email: this.state.Account,
-            //     password: this.state.Password,
-            // })
+                'Authorization': localStorage.getItem('token')
+            }),
+            //body 將 json 轉字串送出
+            body: JSON.stringify({
+                aid: this.state.authorId,
+                name: this.state.name,
+                type: this.state.selectGameType,
+                price: this.state.price,
+                photo: this.state.photo,
+                description: this.state.description,
+                state: this.state.release_state,
+                time: new Date().getDate()
+            })
         }).then((response) => {
             return response.json();
         }).then((data) => {
             console.log(data)
             if (data.err !== null) {
-                // localStorage.setItem('token', data.token)
-                // console.log(localStorage.getItem('token'))
+                console.log(data.staus)
             }
             else {
                 throw data.err

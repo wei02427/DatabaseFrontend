@@ -16,6 +16,7 @@ class Article1 extends React.Component{
         this.state = { list: [] }
     }
 
+    
     componentWillMount() {
         const that = this;
         
