@@ -41,16 +41,18 @@ class SignIn extends React.Component {
             if (data.err !== null) {
                 localStorage.setItem('token', data.token)
                 console.log(localStorage.getItem('token'))
+                this.props.history.push("/");
             }
             else {
                 throw data.err
+                console.log("密碼錯誤");
             }
         }).catch((err) => {
             console.log('錯誤:', err);
+            
         })
         console.log(`輸入的帳號是: ${this.state.Account}`);
         console.log(`輸入的密碼是: ${this.state.password}`);
-        this.props.history.push("/");
     }
 
     render() {

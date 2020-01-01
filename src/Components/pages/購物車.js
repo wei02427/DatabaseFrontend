@@ -13,7 +13,6 @@ class Cart extends React.Component{
             display:"flex",
             justifyContent:"center"
         }
-        var CartGameId=this.props.location.state.CartGameID
             return (
                 <div>
                     <div style={{width:"100%",display:"flex",justifyContent:"center"}}>
@@ -24,7 +23,7 @@ class Cart extends React.Component{
                                 <h5 style={{color:"white",paddingTop:"125px"}}>Step.2 購買成功</h5>
                             </div>
     
-                            <GameTable contact={{tableType:"Cart",NewCartGameId:CartGameId}}/>
+                            <GameTable contact={{tableType:"Cart"}}/>
                         </div>
                     </div>
                 </div>

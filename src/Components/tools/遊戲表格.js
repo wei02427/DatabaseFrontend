@@ -19,65 +19,83 @@ class GameTable extends React.Component {
             money: 0,
         };
         this.handleCartReset = this.handleCartReset.bind(this);
-        this.handleInputChange = this.handleInputChange.bind(this);
         this.deleteChecked = this.deleteChecked.bind(this);
         this.handleManageReset = this.handleManageReset.bind(this);
         this.handleReleaseDown = this.handleReleaseDown.bind(this);
+        this.handleInputChange = this.handleInputChange.bind(this);
         this.handleGameBoxReset = this.handleGameBoxReset.bind(this);
         this.handleManageReset();
         this.handleCartReset();
         this.handleGameBoxReset();
     }
     //#region 購物車相關
+    handleInputChange(event) {   //改變 CratItem的checked
+        console.log( event.target.checked , event.target.value);
+        if(event.target.checked==true){
+            this.state.willBuyList.push(event.target.value)
+            console.log(this.state.willBuyList)
+        }
+        else if(event.target.checked==false){
+            for(var i=0;i<this.state.willBuyList.length;i++){
+                if(this.state.willBuyList[i]==event.target.value){
+                     this.state.willBuyList.splice(i,1);
+                     i--;
+                }
+                
+            }
+            console.log(this.state.willBuyList)
+        }
+        this.setState({willBuyList:this.state.willBuyList})
+        
+    }
+
     handleCartReset() {          //購物車資料
 
-        this.state.CartList = [];
-        var NewCartGameId;
+        const that = this;
+        var allmoney=0;
+        const url="https://ntutsting.herokuapp.com/testAPI"
+        this.setState({CartList:[]})
+        fetch(url, {
+            method: 'post',
+            mode: 'cors',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                type: 'type',
+                state: 'release_state'
+            })
 
-        var Cartitem = {
-            Game_id: NewCartGameId,
-            Name: "魔物獵人",
-            Type: "動作遊戲",
-            Price: 1800,
-            checked: false,
-        }
-        this.state.CartList.push(Cartitem);
-
-        Cartitem = {
-            Game_id: NewCartGameId,
-            Name: "刺客教條:兄弟會",
-            Type: "動作遊戲",
-            Price: 900,
-            checked: false,
-        }
-        this.state.CartList.push(Cartitem);
-
-        this.setState({ CartList: this.state.CartList });
+        })
+            .then(function (data) {
+                return data.json()
+            })
+            .then(function (data) {
+                
+                let CartLists = data.map((element) => 
+                        <tr>
+                            {
+                                allmoney+=element.price,
+                                console.log(allmoney)
+                            }
+                            <td width="150px" align='center' className="bodyField">{element.name}</td>
+                            <td width="150px" align='center' className="bodyField">{element.type}</td>
+                            <td width="150px" align='center' className="bodyField">{element.price}</td>
+                            <td width="150px" align='center' className="bodyField">
+                                <Button variant="danger" value={element.state} className="tableButton">刪除</Button>
+                            </td>
+                        </tr>,
+                )
+                that.setState({
+                    CartList: [...that.state.CartList, CartLists]
+                })
+            })
+            .catch(function (err) {
+                console.log(err)
+            })
     }
 
-    handleInputChange(event) {   //改變 CratItem的checked
-        console.log("Game_id:" + event.target.id + " checked: " + event.target.checked);
-        for (const each of this.state.CartList) {
-            if (each.Name == event.target.name) {
-                each.checked = event.target.checked;
-                if (event.target.checked) {
-                    let addList = { ID: event.target.Game_id, Check: event.target.checked };
-                    this.state.willBuyList.push(addList)
-                    console.log(addList)
-                }
-                else if (event.target.checked == false) {
-                    for (var i = 0; i < willBuyList.length; i++) {
-                        if (willBuyList[i].ID == event.target.Game_id) {
-                            this.state.CartList.splice(i, 1);
-                        }
-                    }
-                    console.log(addList)
-                }
-            }
-
-        }
-        this.setState({ CartList: this.state.CartList });
-    }
+    
 
     deleteChecked(event) {     //刪除CartItem
 
@@ -96,7 +114,9 @@ class GameTable extends React.Component {
     //#region 上架遊戲表相關
     handleManageReset() {          //上架遊戲中資料
         const that = this;
-        fetch("https://ntutsting.herokuapp.com/testAPI", {
+        const url="https://ntutsting.herokuapp.com/testAPI"
+        this.setState({ManageList:[]})
+        fetch(url, {
             method: 'post',
             mode: 'cors',
             headers: {
@@ -112,20 +132,18 @@ class GameTable extends React.Component {
                 return data.json()
             })
             .then(function (data) {
-                let ManageLists = data.map((element) => {
-                    element.state === 1 ? (
+                
+                let ManageLists = data.map((element) => 
                         <tr>
-                            <td width="150px" align='center' className="bodyField">element.name</td>
+                            <td width="150px" align='center' className="bodyField">{element.name}</td>
                             <td width="150px" align='center' className="bodyField">{element.type}</td>
-                            <td width="150px" align='center' className="bodyField">element.price</td>
-                            <td width="150px" align='center' className="bodyField">element.AuthorName</td>
+                            <td width="150px" align='center' className="bodyField">{element.price}</td>
+                            <td width="150px" align='center' className="bodyField">{element.AuthorName}</td>
                             <td width="150px" align='center' className="bodyField">
                                 <Button variant="danger" value={element.state} className="tableButton">下架</Button>
                             </td>
-                        </tr>)
-                        : (console.log(`未上架`))
-
-                })
+                        </tr>
+                )
                 that.setState({
                     ManageList: [...that.state.ManageList, ManageLists]
                 })
@@ -149,35 +167,41 @@ class GameTable extends React.Component {
     //#endregion
     //#region 所有可控的遊戲列表
     handleGameBoxReset() {
-
         const that = this;
-        fetch("https://ntutsting.herokuapp.com/testAPI", {
-            method: 'get',
+        const url="https://ntutsting.herokuapp.com/testAPI"
+        this.setState({GameBoxList:[]})
+        fetch(url, {
+            method: 'post',
             mode: 'cors',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                type: 'type',
+                state: 'release_state'
+            })
+
         })
             .then(function (data) {
-                console.log('callapi')
                 return data.json()
             })
             .then(function (data) {
-                let GameBoxLists = data.map((element) => {
+                let GameBoxLists = data.map((element) => 
                     <tr>
-                        <td width="150px" align='center' className="bodyField">element.Name</td>
-                        <td width="150px" align='center' className="bodyField">element.Type</td>
-                        <td width="150px" align='center' className="bodyField">{element.price}</td>
-                        {
-                            element.state === true
-                                ? <td width="150px" align='center' className="bodyField">上架中</td>
-                                : <td width="150px" align='center' className="bodyField">未上架</td>
-                        }
-
-                        <td width="150px" align='center' className="bodyField">
-                            <Link to={{ pathname: "/changeGameData/editGame", state: { name: "element.name", authorName: "element.authorName", gameType: "element.type", price: element.price, photo: element.photo, description: element.description, release_state: element.state } }}>
-                                <Button variant="secondary" className="tableButton">編輯</Button>
-                            </Link>
-                        </td>
-                    </tr>
-                })
+                    <td width="150px" align='center' className="bodyField">{element.name}</td>
+                    <td width="150px" align='center' className="bodyField">{element.type}</td>
+                    <td width="150px" align='center' className="bodyField">{element.price}</td>
+                    {
+                        element.state==1?(<td width="150px" align='center' className="bodyField">上架中</td>)
+                        :((<td width="150px" align='center' className="bodyField">未上架</td>))
+                    }
+                    <td width="150px" align='center' className="bodyField">
+                        <Link to={{pathname:"/changeGameData/editGame",state:{name:element.name,authorName:element.AuthorName,gameType:element.type,price:element.price,photo:element.photo,description:element.description,release_state:element.state}}}>
+                            <Button variant="secondary" className="tableButton">編輯</Button>
+                        </Link>
+                    </td>
+                </tr>
+                )
                 that.setState({
                     GameBoxList: [...that.state.GameBoxList, GameBoxLists]
                 })
@@ -188,6 +212,8 @@ class GameTable extends React.Component {
 
     }
     //#endregion
+
+
 
     render() {
         if (this.props.contact.tableType === "manage") {
@@ -240,6 +266,7 @@ class GameTable extends React.Component {
                                 <td width="150px" align='center' className="headField">訂單編號</td>
                                 <td width="150px" align='center' className="headField">時間</td>
                                 <td width="150px" align='center' className="headField">總價</td>
+                                <td width="150px" align='center' className="headField">查看</td>
                             </tr>
                         </thead>
                         <tbody>
@@ -247,12 +274,18 @@ class GameTable extends React.Component {
                                 <td width="150px" align='center' className="bodyField">106590017</td>
                                 <td width="150px" align='center' className="bodyField">2019.12.8</td>
                                 <td width="150px" align='center' className="bodyField">550</td>
+                                <td width="150px" align='center' className="bodyField">
+                                    <Button variant="danger" value={element.state}  className="tableButton">查看</Button>
+                                </td>
                             </tr>
 
                             <tr>
                                 <td width="150px" align='center' className="bodyField">106590028</td>
                                 <td width="150px" align='center' className="bodyField">2020.3.6</td>
                                 <td width="150px" align='center' className="bodyField">700</td>
+                                <td width="150px" align='center' className="bodyField">
+                                    <Button variant="danger" value={element.state} className="tableButton">查看</Button>
+                                </td>
                             </tr>
                         </tbody>
                     </table>
@@ -266,34 +299,19 @@ class GameTable extends React.Component {
                         <table>
                             <thead>
                                 <tr className="tableHead">
-                                    <td width="150px" align='center' className="headField">勾選購買</td>
                                     <td width="150px" align='center' className="headField">名稱</td>
-                                    <td width="150px" align='center' className="headField">種類</td>
+                                    <td width="150px" align='center' className="headField">總類</td>
                                     <td width="150px" align='center' className="headField">價格</td>
+                                    <td width="150px" align='center' className="headField">刪除</td>
                                 </tr>
                             </thead>
                             <tbody>
                                 {
-                                    this.state.CartList.map((Cartitem) =>
-                                        <tr>
-                                            <td width="150px" align='center' className="bodyField">
-                                                <Checkbox
-                                                    id={Cartitem.Game_id}
-                                                    name={Cartitem.Name}
-                                                    onChange={this.handleInputChange}
-                                                    checked={Cartitem.checked}
-                                                />
-                                            </td>
-                                            <td width="150px" align='center' className="bodyField">{Cartitem.Name}</td>
-                                            <td width="150px" align='center' className="bodyField">{Cartitem.Type}</td>
-                                            <td width="150px" align='center' className="bodyField">{Cartitem.Price}</td>
-                                        </tr>
-                                    )
+                                    this.state.CartList
                                 }
                             </tbody>
                         </table>
                     </div>
-                    <Button style={{ backgroundColor: "red" }} onClick={this.deleteChecked} className="Carttable" type="Button">刪除</Button>
                     <Link to={{ pathname: "/orderPage", state: { id: "1561561", price: this.state.money, time: "拿後端", cartList: this.state.CartList } }} >
                         <Button style={{ backgroundColor: "green" }} className="Carttable" type="Submit">確認購買</Button>
                     </Link>
