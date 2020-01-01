@@ -14,6 +14,12 @@ class Article1 extends React.Component{
     constructor(props){
         super(props);
         this.state = { list: [] }
+        this.GetGamesByType = this.GetGamesByType.bind(this)
+    }
+
+    GetGamesByType(e){
+        var gameType = e.target.value;
+        console.log(gameType);
     }
 
     
@@ -45,7 +51,7 @@ class Article1 extends React.Component{
 
         return (
             <div>
-                <NaviBar/>
+                <NaviBar GetGamesByType = {this.GetGamesByType}/>
                 <Carousels />
                 <div style={{ width: "100%", display: "flex", justifyContent: "center" }}>
                     <div className="Mycontainer" id="MainContainer" style={{ paddingTop: "20px" }}>

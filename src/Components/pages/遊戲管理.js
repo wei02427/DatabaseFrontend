@@ -8,6 +8,12 @@ import Button from 'react-bootstrap/Button';
 class GameMange extends React.Component{
     constructor(props){
         super(props);
+        this.GetGamesByType = this.GetGamesByType.bind(this)
+    }
+
+    GetGamesByType(e){
+        var gameType = e.target.value;
+        console.log(gameType);
     }
     
     render(){
@@ -24,7 +30,7 @@ class GameMange extends React.Component{
 
         return (
             <div>
-                <NaviBar/>
+                <NaviBar GetGamesByType = {this.GetGamesByType}/>
                 <div style={{width:"100%",display:"flex",justifyContent:"center"}}>
                     <div className="Mycontainer" id="MainContainer" style={{paddingTop:"20px"}}>
                         <div className="TitleDiv" style={CenterStyle}>
