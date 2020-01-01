@@ -166,7 +166,7 @@ class GameTable extends React.Component{
                             }
                             
                             <td width="150px" align='center' className="bodyField">
-                            <Link to={{pathname:"/changeGameData/editGame",state:{isRelease:element.state}}}>
+                            <Link to={{pathname:"/changeGameData/editGame",state:{name:"element.name",authorName:"element.authorName",gameType:"element.type",price:element.price,photo:element.photo,description:element.description,release_state:element.state}}}>
                                 <Button variant="secondary" className="tableButton">編輯</Button>
                             </Link>
                             </td>
