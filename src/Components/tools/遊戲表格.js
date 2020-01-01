@@ -19,9 +19,9 @@ class GameTable extends React.Component {
             money: 0,
         };
         this.handleCartReset = this.handleCartReset.bind(this);
-        // this.deleteChecked = this.deleteChecked.bind(this);
+
         this.handleManageReset = this.handleManageReset.bind(this);
-        // this.handleReleaseDown = this.handleReleaseDown.bind(this);
+
         this.handleInputChange = this.handleInputChange.bind(this);
         this.handleGameBoxReset = this.handleGameBoxReset.bind(this);
         this.handleReleaseDown = this.handleReleaseDown.bind(this);
@@ -113,20 +113,22 @@ class GameTable extends React.Component {
                 return data.json()
             })
             .then(function (data) {
-
-                let CartLists = data.map((element) =>
-                    <tr>
-                        {
-                            allmoney += element.price,
-                            console.log(allmoney)
-                        }
-                        <td width="150px" align='center' className="bodyField">{element.name}</td>
-                        <td width="150px" align='center' className="bodyField">{element.type}</td>
-                        <td width="150px" align='center' className="bodyField">{element.price}</td>
-                        <td width="150px" align='center' className="bodyField">
-                            <Button variant="danger" value={element.gameID} onClick={that.Cartdown} className="tableButton">刪除</Button>
-                        </td>
-                    </tr>,
+                
+                let CartLists = data.map((element) => 
+                        <tr>
+                            {
+                                allmoney+=element.price,
+                                console.log(`fdsafdsaf :${allmoney}`),
+                                that.setState({money:allmoney}),
+                                console.log(`<3<3<3:${that.state.money}`)
+                            }
+                            <td width="150px" align='center' className="bodyField">{element.name}</td>
+                            <td width="150px" align='center' className="bodyField">{element.type}</td>
+                            <td width="150px" align='center' className="bodyField">{element.price}</td>
+                            <td width="150px" align='center' className="bodyField">
+                                <Button variant="danger" value={element.state} className="tableButton">刪除</Button>
+                            </td>
+                        </tr>,
                 )
                 that.setState({
                     CartList: [...that.state.CartList, CartLists]
@@ -135,6 +137,7 @@ class GameTable extends React.Component {
             .catch(function (err) {
                 console.log(err)
             })
+            
     }
 
 
@@ -270,7 +273,7 @@ class GameTable extends React.Component {
                                 : ((<td width="150px" align='center' className="bodyField">未上架</td>))
                         }
                         <td width="150px" align='center' className="bodyField">
-                            <Link to={{ pathname: "/changeGameData/editGame", state: { name: element.name, authorName: element.AuthorName, gameType: element.type, price: element.price, photo: element.photo, description: element.description, release_state: element.state, gameId: element.gameID } }}>
+                            <Link to={{ pathname: "/changeGameData/editGame", state: { name: element.Gname, authorName: element.AuthorName, gameType: element.type, price: element.price, photo: element.photo, description: element.description, release_state: element.state, gameId: element.gameID } }}>
                                 <Button variant="secondary" className="tableButton">編輯</Button>
                             </Link>
                         </td>
@@ -358,7 +361,7 @@ class GameTable extends React.Component {
                                 <td width="150px" align='center' className="bodyField">2020.3.6</td>
                                 <td width="150px" align='center' className="bodyField">700</td>
                                 <td width="150px" align='center' className="bodyField">
-                                    <Button variant="danger" value={element.state} className="tableButton">查看</Button>
+                                    <Button variant="danger"  className="tableButton">查看</Button>
                                 </td>
                             </tr>
                         </tbody>

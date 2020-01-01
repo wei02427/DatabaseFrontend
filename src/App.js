@@ -18,6 +18,30 @@ import "./css/gotop.css"
 class App extends React.Component{
     constructor(props){
         super(props);
+        this.state={
+            logPerson:"noUser"
+        }
+        this.changeLogState=this.changeLogState.bind(this)
+        this.LogOut=this.LogOut.bind(this)
+    }
+
+    //登入身分判斷
+    changeLogState(logIdent){
+        var newLogPerson = this.state.logPerson;
+        if(logIdent===true){
+            newLogPerson = "ManagerLogIn";
+            this.setState({logPerson:newLogPerson});
+        }else{
+            newLogPerson = "userLogIn";
+            this.setState({logPerson:newLogPerson});
+        }
+    }
+
+    //登出
+    LogOut(){
+        var newLogPerson = this.state.logPerson;
+        newLogPerson = "noUser";
+        this.setState({logPerson:newLogPerson});
     }
 
     render(){
@@ -25,12 +49,12 @@ class App extends React.Component{
             <BrowserRouter>
                 <Router>
                     <div> 
-                        <Header contact={{logState:"noUser"}}/>
+                        <Header contact={{logState:this.state.logPerson}} LogOut={this.LogOut}/>
                         <Route exact path="/" component={Home}/>
                         <Route path="/gmaeInfo" component={GmaeInfo}/>
                         <Route path="/gmaeManage" component={GmaeManage}/>
                         <Route path="/gameBox" component={GameBox}/>
-                        <Route path="/signIn" component={SignIn}/>
+                        <Route path="/signIn" render={(props) => (<SignIn {...props} changeLogState={this.changeLogState.bind(this)} />)} />
                         <Route path="/signUp" component={SignUp}/>
                         <Route path="/orderRecoder" component={OrderRecoder}/>
                         <Route path="/changeGameData/:action" component={ChangeGameData}/>

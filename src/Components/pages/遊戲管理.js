@@ -30,7 +30,7 @@ class GameMange extends React.Component{
 
         return (
             <div>
-                <NaviBar GetGamesByType = {this.GetGamesByType}/>
+
                 <div style={{width:"100%",display:"flex",justifyContent:"center"}}>
                     <div className="Mycontainer" id="MainContainer" style={{paddingTop:"20px"}}>
                         <div className="TitleDiv" style={CenterStyle}>

@@ -5,7 +5,10 @@ import jwt_decode from 'jwt-decode';
 class OrderArea extends React.Component {
     constructor(props) {
         super(props);
-        this.handleClick = this.handleClick.bind(this);
+        this.handleClick=this.handleClick.bind(this);
+        this.state={
+            isable=false
+        }
     }
 
     handleClick(event) {
@@ -47,9 +50,14 @@ class OrderArea extends React.Component {
                 <h5 className="orderText">購買遊戲</h5>
                 <div className="priceArea"></div>
                 <p className="priceText">NT$：{this.props.contact.price}</p>
-                <Link to={{ pathname: "/Cart" }}>
-                    <Button variant="success" value={this.props.contact.ID} onClick={this.handleClick}>加入購物車</Button>
-                </Link>
+                {
+                    this.state.isable?(
+                        <Button variant="success" value={this.props.contact.ID} onClick={this.handleClick}>加入購物車</Button>
+                    ):(
+                        <Button variant="success" value={this.props.contact.ID} onClick={this.handleClick}>加入購物車</Button>
+                    )
+                }
+                
             </div>
         );
     }
