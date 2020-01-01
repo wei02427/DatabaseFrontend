@@ -6,6 +6,7 @@ import { Link } from "react-router-dom";
 import Form from "react-bootstrap/FormControl";
 import "../../css/container排版.css"
 import { Checkbox } from "semantic-ui-react";
+import { DH_UNABLE_TO_CHECK_GENERATOR } from "constants";
   
 class GameTable extends React.Component{
     constructor(props){
@@ -14,6 +15,7 @@ class GameTable extends React.Component{
             CartList:[],
             ManageList:[],
             GameBoxList:[],
+            willBuyList:[],
             money:0,
         };
         this.handleCartReset=this.handleCartReset.bind(this);
@@ -28,6 +30,7 @@ class GameTable extends React.Component{
     }
     //#region 購物車相關
     handleCartReset(){          //購物車資料
+
         this.state.CartList=[];
         var NewCartGameId;
         
@@ -57,7 +60,22 @@ class GameTable extends React.Component{
         for(const each of this.state.CartList){
             if(each.Name == event.target.name){
                 each.checked = event.target.checked;
+                if(event.target.checked)
+                {
+                    let addList ={ID:event.target.Game_id,Check:event.target.checked};
+                    this.state.willBuyList.push(addList)
+                    console.log(addList)
+                }
+                else if(event.target.checked==false){
+                    for(var i=0;i<willBuyList.length;i++){
+                        if(willBuyList[i].ID ==event.target.Game_id){
+                            this.state.CartList.splice(i,1);
+                        }
+                    }
+                    console.log(addList)
+                }
             }
+            
         }
         this.setState({CartList:this.state.CartList});
       }
@@ -78,7 +96,34 @@ class GameTable extends React.Component{
     //#endregion
     //#region 上架遊戲表相關
     handleManageReset(){          //上架遊戲中資料
-        this.state.ManageList=[];
+        const that = this;
+
+        let url="https://ntutsting.herokuapp.com/testAPI";
+        fetch (url,{
+            method: 'get',
+            mode: 'cors',
+        })
+            .then(function (data) {
+                console.log('callapi')
+                return data.json()
+        })
+            .then(function(data){
+                var Manageitem=data.map((element)=>
+                        Game_id=element.gameID,
+                        Name="刺客教條",
+                        Type="冒險類型",
+                        Price=element.price,
+                        AuthorName="刺客大聯盟",
+                        isRelease=element.state)
+                that.setState({
+                    ManageList:[...that.state.ManageList,Manageitem]
+                })
+        })
+        .catch(function (err) {
+            console.log(err)
+        })
+
+        /*this.state.ManageList=[];
         var Manageitem={
             Game_id:"8941",
             Name:"刺客教條",
@@ -97,9 +142,9 @@ class GameTable extends React.Component{
             AuthorName:"遊戲橘子",
             isRelease:true
         }
-        this.state.ManageList.push(Manageitem);
+        this.state.ManageList.push(Manageitem);*/
 
-        this.setState({ManageList:this.state.ManageList});
+        //this.setState({ManageList:this.state.ManageList});
     }
 
     handleReleaseDown(event){
