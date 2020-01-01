@@ -97,9 +97,7 @@ class GameTable extends React.Component{
     //#region 上架遊戲表相關
     handleManageReset(){          //上架遊戲中資料
         const that = this;
-
-        let url="https://ntutsting.herokuapp.com/testAPI";
-        fetch (url,{
+        fetch ("https://ntutsting.herokuapp.com/testAPI",{
             method: 'get',
             mode: 'cors',
         })
@@ -108,79 +106,93 @@ class GameTable extends React.Component{
                 return data.json()
         })
             .then(function(data){
-                var Manageitem=data.map((element)=>
-                        Game_id=element.gameID,
-                        Name="刺客教條",
-                        Type="冒險類型",
-                        Price=element.price,
-                        AuthorName="刺客大聯盟",
-                        isRelease=element.state)
-                that.setState({
-                    ManageList:[...that.state.ManageList,Manageitem]
+                let ManageLists=data.map((element)=>{
+                    element.state===1?(
+                        <tr>
+                            <td width="150px" align='center' className="bodyField">element.name</td>
+                            <td width="150px" align='center' className="bodyField">element.type</td>
+                            <td width="150px" align='center' className="bodyField">{element.price}</td>
+                            <td width="150px" align='center' className="bodyField">element.AuthorName</td>
+                            <td width="150px" align='center' className="bodyField">
+                                <Button variant="danger" value={element.state} className="tableButton">下架</Button>
+                            </td>
+                        </tr>)
+                        :(console.log(`未上架`))
+                    
                 })
+                    that.setState({
+                         ManageList:[...that.state.ManageList,ManageLists]
+                    })
         })
         .catch(function (err) {
             console.log(err)
         })
-
-        /*this.state.ManageList=[];
-        var Manageitem={
-            Game_id:"8941",
-            Name:"刺客教條",
-            Type:"冒險類型",
-            Price:777,
-            AuthorName:"刺客大聯盟",
-            isRelease:true
-        }
-        this.state.ManageList.push(Manageitem);
-
-        Manageitem={
-            Game_id:"2248",
-            Name:"跑跑卡丁車",
-            Type:"競速類型",
-            Price:888,  
-            AuthorName:"遊戲橘子",
-            isRelease:true
-        }
-        this.state.ManageList.push(Manageitem);*/
-
-        //this.setState({ManageList:this.state.ManageList});
+        
     }
 
-    handleReleaseDown(event){
+    handleReleaseDown(event){   //刪除
         for(var i=0;i<this.state.ManageList.length;i++){
             if(this.state.ManageList[i].Game_id == event.target.value){
                 this.state.ManageList[i].isRelease=false;
                 this.state.ManageList.splice(i,1);
                 i--;
             }
-            
         }this.setState({ManageList:this.state.ManageList});
     }
         
     //#endregion
     //#region 所有可控的遊戲列表
         handleGameBoxReset(){
-            this.state.GameBoxList=[];
-            var GameBoxitem={
+     
+            const that = this;
+            fetch ("https://ntutsting.herokuapp.com/testAPI",{
+                method: 'get',
+                mode: 'cors',
+            })
+                .then(function (data) {
+                    console.log('callapi')
+                    return data.json()
+            })
+                .then(function(data){
+                    let GameBoxLists=data.map((element)=>{
+                        <tr>
+                            <td width="150px" align='center' className="bodyField">element.Name</td>
+                            <td width="150px" align='center' className="bodyField">element.Type</td>
+                            <td width="150px" align='center' className="bodyField">{element.price}</td>
+                            {
+                                element.state===true
+                                ? <td width="150px" align='center' className="bodyField">上架中</td>
+                                : <td width="150px" align='center' className="bodyField">未上架</td>
+                            }
+                            
+                            <td width="150px" align='center' className="bodyField">
+                            <Link to={{pathname:"/changeGameData/editGame",state:{isRelease:element.state}}}>
+                                <Button variant="secondary" className="tableButton">編輯</Button>
+                            </Link>
+                            </td>
+                        </tr>
+                    })
+                        that.setState({
+                            GameBoxList:[...that.state.GameBoxList,GameBoxLists]
+                        })
+            })
+            .catch(function (err) {
+                console.log(err)
+            })
+
+
+
+
+           /*var GameBoxitem={
                 Game_id:"7788",
                 Name:"跑跑薑餅人",
                 Type:"競速類型",
                 Price:777,
                 isRelease:false
             }
-            this.state.GameBoxList.push(GameBoxitem);
+            this.state.GameBoxList.push(GameBoxitem);*/
 
-            var GameBoxitem={
-                Game_id:"8941",
-                Name:"跑跑卡丁車",
-                Type:"競速類型",
-                Price:888,
-                isRelease:true
-            }
-            this.state.GameBoxList.push(GameBoxitem);
-
-            this.setState({GameBoxList:this.state.GameBoxList});
+           
         }
     //#endregion
 
@@ -199,19 +211,8 @@ class GameTable extends React.Component{
                             </tr>
                         </thead>
                         <tbody>
-                            {
-                            this.state.ManageList.map((Manageitem)=>
-                                    <tr>
-                                        <td width="150px" align='center' className="bodyField">{Manageitem.Name}</td>
-                                        <td width="150px" align='center' className="bodyField">{Manageitem.Type}</td>
-                                        <td width="150px" align='center' className="bodyField">{Manageitem.Price}</td>
-                                        <td width="150px" align='center' className="bodyField">{Manageitem.AuthorName}</td>
-                                        <td width="150px" align='center' className="bodyField">
-                                            <Button variant="danger" value={Manageitem.Game_id} onClick={this.handleReleaseDown} className="tableButton">下架</Button>
-                                        </td>
-                                    </tr>
-                                )
-                            }   
+                            {this.state.ManageList}
+                             
                         </tbody>
                     </table>
                 </div>
@@ -231,25 +232,8 @@ class GameTable extends React.Component{
                         </thead>
                         <tbody>
                             {
-                                this.state.GameBoxList.map((GameBoxitem)=>
-                                        <tr>
-                                            <td width="150px" align='center' className="bodyField">{GameBoxitem.Name}</td>
-                                            <td width="150px" align='center' className="bodyField">{GameBoxitem.Type}</td>
-                                            <td width="150px" align='center' className="bodyField">{GameBoxitem.Price}</td>
-                                            {
-                                                GameBoxitem.isRelease===true
-                                                ? <td width="150px" align='center' className="bodyField">上架中</td>
-                                                : <td width="150px" align='center' className="bodyField">未上架</td>
-                                            }
-                                            
-                                            <td width="150px" align='center' className="bodyField">
-                                            <Link to={{pathname:"/changeGameData/editGame",state:{isRelease:GameBoxitem.isRelease}}}>
-                                                <Button variant="secondary" className="tableButton">編輯</Button>
-                                            </Link>
-                                            </td>
-                                        </tr>
-                                    )
-                            }   
+                               this.state.GameBoxList
+                            }  
                         </tbody>
                     </table>
                 </div>
