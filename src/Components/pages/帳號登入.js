@@ -43,7 +43,7 @@ class SignIn extends React.Component {
                 console.log(localStorage.getItem('token'))
             }
             else {
-                throw err
+                throw data.err
             }
         }).catch((err) => {
             console.log('錯誤:', err);
