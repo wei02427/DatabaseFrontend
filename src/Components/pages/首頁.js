@@ -22,6 +22,7 @@ class Article1 extends React.Component{
         console.log(gameType);
     }
 
+    
     componentWillMount() {
         const that = this;
         
