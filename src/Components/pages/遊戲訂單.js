@@ -56,7 +56,7 @@ class OrderPage extends React.Component{
         color:"white",
         padding:"30px"
     }
-    
+    var d=new Date()
     var price = this.props.location.state.price
     var d = new Date()
         return (

@@ -106,8 +106,8 @@ class CreateGame extends React.Component {
             //body 將 json 轉字串送出
             body: JSON.stringify({
                 gid: this.state.gameID,
-                field: ['name', 'type', 'price', 'photo', 'description'],
-                value: [this.state.name, this.state.selectGameType, this.state.price, this.state.photo, this.state.description]
+                field: ['name', 'price', 'photo', 'description'],
+                value: [this.state.name, this.state.price, this.state.photo, this.state.description]
             })
         }).then((response) => {
             return response.json();

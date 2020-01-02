@@ -27,7 +27,8 @@ class GameTable extends React.Component {
         this.handleReleaseDown = this.handleReleaseDown.bind(this);
         this.loadcurrent = this.loadcurrent.bind(this);
         this.Cartdown = this.Cartdown.bind(this);
-        this.getcartlist=this.getcartlist.bind(this);
+        this.checkBuy = this.checkBuy.bind(this);
+        this.getcartlist = this.getcartlist.bind(this);
         this.handleManageReset();
         this.handleCartReset();
         this.handleGameBoxReset();
@@ -95,10 +96,45 @@ class GameTable extends React.Component {
 
     }
 
+    checkBuy(e) {
+        console.log(JSON.parse("[" + e.target.value + "]"))
+        console.log(typeof(JSON.parse("[" + e.target.value + "]")))
+        
+        const url = 'http://localhost:9000/payment'
+
+        fetch(url, {
+            method: 'post',
+            mode: 'cors',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': localStorage.getItem('token')
+            },
+            body: JSON.stringify({
+                uid: jwt_decode(localStorage.getItem('token')).uid,
+                gid: JSON.parse("[" + e.target.value + "]")
+            })
+        })
+            .then(function (data) {
+                return data.json()
+            })
+            .then(function (data) {
+                if (data.err !== null) {
+                    console.log(data.staus)
+                }
+                else {
+                    throw data.err
+                }
+            })
+
+            .catch(function (err) {
+                console.log(err)
+            })
+    }
+
     Cartdown(e) {
-        console.log(e.target.value)
+        console.log('hhh' + e.target.value)
         const url = 'http://localhost:9000/removeCart'
-        var that=this
+        var that = this
         fetch(url, {
             method: 'post',
             mode: 'cors',
@@ -133,7 +169,7 @@ class GameTable extends React.Component {
         this.getcartlist()
     }
     getcartlist() {
-
+        var lists = []
         const that = this;
         var allmoney = 0;
         const url = "http://localhost:9000/getCartlist"
@@ -154,31 +190,34 @@ class GameTable extends React.Component {
                 return data.json()
             })
             .then(function (data) {
-                
-                let CartLists = data.map((element) => 
-                        <tr>
-                            {
-                                allmoney+=element.price,
-                                console.log(`fdsafdsaf :${allmoney}`),
-                                that.setState({money:allmoney}),
-                                console.log(`<3<3<3:${that.state.money}`)
-                            }
-                            <td width="150px" align='center' className="bodyField">{element.name}</td>
-                            <td width="150px" align='center' className="bodyField">{element.type}</td>
-                            <td width="150px" align='center' className="bodyField">{element.price}</td>
-                            <td width="150px" align='center' className="bodyField">
-                                <Button variant="danger" value={element.state} className="tableButton">刪除</Button>
-                            </td>
-                        </tr>,
+
+                let CartLists = data.map((element) =>
+                    <tr>
+                        {
+                            allmoney += element.price,
+                            that.setState({ money: allmoney }),
+                            lists.push(element.gameID)
+                        }
+                        <td width="150px" align='center' className="bodyField">{element.name}</td>
+                        <td width="150px" align='center' className="bodyField">{element.type}</td>
+                        <td width="150px" align='center' className="bodyField">{element.price}</td>
+                        <td width="150px" align='center' className="bodyField">
+                            <Button variant="danger" value={element.gameID} className="tableButton" onClick={that.Cartdown}>刪除</Button>
+                        </td>
+                    </tr>,
                 )
                 that.setState({
                     CartList: [...that.state.CartList, CartLists]
+                })
+
+                that.setState({
+                    willBuyList: [...that.state.willBuyList, lists]
                 })
             })
             .catch(function (err) {
                 console.log(err)
             })
-            
+
     }
 
 
@@ -415,7 +454,7 @@ class GameTable extends React.Component {
                         </table>
                     </div>
                     <Link to={{ pathname: "/orderPage", state: { id: "1561561", price: this.state.money, time: "拿後端", cartList: this.state.CartList } }} >
-                        <Button style={{ backgroundColor: "green" }} className="Carttable" type="Submit">確認購買</Button>
+                        <Button style={{ backgroundColor: "green" }} value={this.state.willBuyList} className="Carttable" type="Submit" onClick={this.checkBuy}>確認購買</Button>
                     </Link>
                 </div>
 
