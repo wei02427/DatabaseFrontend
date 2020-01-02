@@ -28,22 +28,31 @@ class GameInfo extends React.Component{
         var gamePrice=data.price;
         var gameImg=data.img;
         var gameId=data.gameID;
-        var gameName=data.gameName;
-        var gameAuthor=data.gameAuthor;
-        var gameType=data.gameType;
         var gmaeText=data.description;
-        return (
-            <div>
-                <div style={{width:"100%",display:"flex",justifyContent:"center"} }>
-                    <div className="Mycontainer" id="MainContainer" style={{paddingTop:"20px"}}>
-                        <Article contact={{img:gameImg,title:"遊戲介紹:",text:gmaeText,style:1,ID:gameId}}/>
-                        <OrderArea contact={{price:gamePrice,ID:gameId}}/>
-                        <hr></hr>
-                        <Messageboard contact={{ID:gameId}}/>
+        if(this.props.match.params.mode==="normal"){
+            return (
+                <div>
+                    <div style={{width:"100%",display:"flex",justifyContent:"center"} }>
+                        <div className="Mycontainer" id="MainContainer" style={{paddingTop:"20px"}}>
+                            <Article contact={{img:gameImg,title:"遊戲介紹:",text:gmaeText,style:1,ID:gameId}}/>
+                            <OrderArea contact={{price:gamePrice,ID:gameId}}/>
+                            <hr></hr>
+                            <Messageboard contact={{ID:gameId}}/>
+                        </div>
                     </div>
                 </div>
-            </div>
-        );
+            );
+        }else{
+            return (
+                <div>
+                    <div style={{width:"100%",display:"flex",justifyContent:"center"} }>
+                        <div className="Mycontainer" id="MainContainer" style={{paddingTop:"20px"}}>
+                            <Article contact={{img:gameImg,title:"遊戲介紹:",text:gmaeText,style:1,ID:gameId}}/>
+                        </div>
+                    </div>
+                </div>
+            );
+        }
     }
 }
 

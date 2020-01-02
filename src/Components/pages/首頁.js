@@ -43,7 +43,7 @@ class Article1 extends React.Component {
                 return data.json()
             })
             .then(function (data) {
-                let lists = data.map((element) => <Link className="gameCard" to={{ pathname: "/gmaeInfo", state: { price: element.price, img: element.photo, description: element.description, gameID: element.gameID } }}>
+                let lists = data.map((element) => <Link className="gameCard" to={{ pathname: "/gmaeInfo/normal", state: { price: element.price, img: element.photo, description: element.description, gameID: element.gameID } }}>
                     <ImgText contact={{ img: element.photo, text: element.price, style: "1" }} />
                 </Link>)
                 that.setState({

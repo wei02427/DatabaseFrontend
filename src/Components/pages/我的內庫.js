@@ -12,15 +12,11 @@ class UnderWear extends React.Component{
     constructor(props){
         super(props);
         this.state = { list: [] }
-        this.GetGamesByType=this.GetGamesByType.bind(this)
+        this.insert= this.insert.bind();
     }
 
-    GetGamesByType(e){
-        var gameType = e.target.value;
-        console.log(gameType);
-        this.loadData(gameType)
-    }
-    loadData(type) {
+
+    insert() {
         const that = this;
         const url='https://ntutsting.herokuapp.com/testAPI'
         this.setState({list:[]})
@@ -31,7 +27,6 @@ class UnderWear extends React.Component{
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify({
-                type: type,
                 state:1
             })
         })
@@ -69,7 +64,6 @@ class UnderWear extends React.Component{
                         <div className="TitleDiv" style={CenterStyle}>
                             <h2 style={{color:"white",paddingTop:"170px"}}>我的內庫：已擁有的遊戲</h2>
                         </div>
-                        <GameTtile contact={{ img: titleImg }}></GameTtile>
                         <div className="GameContainer">
                             {this.state.list}
                                 </div>

@@ -59,6 +59,10 @@ class Header extends React.Component{
                                 </Dropdown.Item>
 
                                 <Dropdown.Item>
+                                    <Link style={dropdownTextStyle} to="/underWear">我的內庫</Link>
+                                </Dropdown.Item>
+
+                                <Dropdown.Item>
                                     <Link style={dropdownTextStyle} to="/orderRecoder">交易紀錄</Link>
                                 </Dropdown.Item>
 

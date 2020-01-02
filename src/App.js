@@ -13,6 +13,7 @@ import ChangeGameData from './Components/pages/編輯&新增遊戲'
 import PersonalInfo from './Components/pages/個人資料'
 import Cart from './Components/pages/購物車'
 import OrderPage from './Components/pages/遊戲訂單'
+import UnderWear from './Components/pages/我的內庫'
 import "./css/gotop.css"
 
 class App extends React.Component{
@@ -51,7 +52,7 @@ class App extends React.Component{
                     <div> 
                         <Header contact={{logState:this.state.logPerson}} LogOut={this.LogOut}/>
                         <Route exact path="/" component={Home}/>
-                        <Route path="/gmaeInfo" component={GmaeInfo}/>
+                        <Route path="/gmaeInfo/:mode" component={GmaeInfo}/>
                         <Route path="/gmaeManage" component={GmaeManage}/>
                         <Route path="/gameBox" component={GameBox}/>
                         <Route path="/signIn" render={(props) => (<SignIn {...props} changeLogState={this.changeLogState.bind(this)} />)} />
@@ -61,6 +62,7 @@ class App extends React.Component{
                         <Route path="/personalInfo" component={PersonalInfo}/>
                         <Route path="/Cart" component={Cart}/>
                         <Route path="/orderPage" component={OrderPage}/>
+                        <Route path="/underWear" component={UnderWear}/>
                         <div className="goTop">TOP</div>
                         <Footer/>
                     </div>
